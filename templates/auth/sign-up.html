@@ -1,0 +1,84 @@
+{% load static %}
+<html lang="en-US" dir="rtl" class="chrome windows fontawesome-i2svg-active fontawesome-i2svg-complete"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===============================================-->
+  <!--    Document Title-->
+  <!-- ===============================================-->
+  <title>Phoenix</title>
+
+
+ 
+
+{% include '_partials/_styles-assets.html' %}
+
+
+</head>
+
+<body>
+  <!-- ===============================================-->
+  <!--    Main Content-->
+  <!-- ===============================================-->
+  <main class="main" id="top">
+    <div class="container">
+      <div class="row flex-center min-vh-100 py-5">
+        <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3"><a class="d-flex flex-center text-decoration-none mb-4" href="../../../index.html">
+            <div class="d-flex align-items-center fw-bolder fs-5 d-inline-block"><img src="{% static 'assets/img/icons/logo.png'%}" alt="phoenix" width="58"></div>
+          </a>
+          <div class="text-center mb-7">
+            <h3 class="text-1000">حساب کاربری</h3>
+            <p class="text-700">ساخت حساب کاربری</p>
+          </div>
+          <div class="position-relative mt-4">
+            <hr class="bg-200">
+            <div class="divider-content-center"></div>
+          </div>
+          <form method="post">
+          {% csrf_token %}
+          
+  
+          
+          
+            <div class="mb-3 text-start"><p class="" for="store_name">نام فروشگاه</p>{{signupform.store_name}}</div>
+            <div class="mb-3 text-start"><p class="" for="seller_name">نام فروشنده</p>{{signupform.seller_name}}</div>
+            <div class="mb-3 text-start"><p class="" for="phone_number">شماره همراه</p>{{signupform.phone_number}}
+              {% if signupform.phone_number.errors %}
+              <div>
+                  {% for error in signupform.phone_number.errors %}
+                  <div class="text-danger mt-2">{{ error }}</div>
+                  {% endfor %}
+              </div>
+            {% endif %}
+            </div>
+          
+            <div class="row g-3 mb-3">
+              <div class="col-sm-6"><p class="" for="password">رمز عبور</p>{{signupform.password}}</div>
+              <div class="col-sm-6"><p class="" for="password_confirm">تکرار رمز عبور</p>{{signupform.password_confirm}}</div>
+              {% if signupform.password.errors %}
+              <div>
+                  {% for error in signupform.password.errors %}
+                  <div class="text-danger">{{ error }}</div>
+                  {% endfor %}
+              </div>
+            {% endif %}
+            </div>
+            
+            <button class="btn btn-primary w-100 mb-3">ساخت حساب کاربری</button>
+            <div class="text-center"><a class="fs--1 fw-bold" href="../../../pages/authentication/simple/sign-in.html">ورود به حساب کاربری</a></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- ===============================================-->
+  <!--    End of Main Content-->
+  <!-- ===============================================-->
+
+  
+
+</body></html>
+
+

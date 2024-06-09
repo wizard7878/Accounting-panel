@@ -1,0 +1,77 @@
+{% load static %}
+<html lang="en-US" dir="rtl" class="chrome windows fontawesome-i2svg-active fontawesome-i2svg-complete"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===============================================-->
+  <!--    Document Title-->
+  <!-- ===============================================-->
+  <title>Phoenix</title>
+ 
+  
+</head>
+{% include '_partials/_styles-assets.html' %}
+
+<body>
+  <!-- ===============================================-->
+  <!--    Main Content-->
+  <!-- ===============================================-->
+  <main class="main" id="top">
+    <div class="container">
+      <div class="row flex-center min-vh-100 py-5">
+        <div class="col-sm-10 col-md-8 col-lg-5 col-xxl-4"><a class="d-flex flex-center text-decoration-none mb-4" href="../../../index.html">
+            <div class="d-flex align-items-center fw-bolder fs-5 d-inline-block"><img src="../../../assets/img/icons/logo.png" alt="phoenix" width="58"></div>
+          </a>
+          <div class="px-xxl-5">
+            <div class="text-center mb-6">
+              <h4 class="text-1000">کد تایید را وارد کنید</h4>
+              <p class="text-700 mb-0">کد تایید برای شماره موبایل {{phonenumber}}  ارسال شد</p>
+              <p class="fs--2 mb-5"></a></p>
+              <form method="post" style="direction: ltr;" class="verification-form" data-2fa-varification="data-2FA-varification">
+                {% csrf_token %}
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <input name="num1" class="form-control px-2 text-center" type="number">
+                  <input name="num2" class="form-control px-2 text-center" type="number" disabled="disabled">
+                  <input name="num3" class="form-control px-2 text-center" type="number" disabled="disabled"><span>-</span>
+                  <input name="num4" class="form-control px-2 text-center" type="number" disabled="disabled">
+                  <input name="num5" class="form-control px-2 text-center" type="number" disabled="disabled">
+                  <input name="num6" class="form-control px-2 text-center" type="number" disabled="disabled"></div>
+                <div class="form-check text-start mb-4"></div><button id="otp-submit" class="btn btn-primary w-100 mb-5" type="submit">تایید </button>
+                <div id="some_div"></div>
+                
+                <a id="send-sms-again" style="display: none;" class="fs--1" href="#!">ارسال دوباره پیامک</a>
+              </form>
+
+              
+
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </main>
+  <!-- ===============================================-->
+  <!--    End of Main Content-->
+  <!-- ===============================================-->
+
+
+<script>
+  
+  window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = "{% static 'scripts/timerscript.js'%}";  // Path to your JavaScript file
+            script.onload =  function() {
+                console.log('Script loaded successfully');
+                countdown();  // Call the function after the script is loaded
+            };
+            script.onerror = function() {
+                console.error('Error loading script');
+            };
+            document.body.appendChild(script);
+        });
+</script>
+</body></html>

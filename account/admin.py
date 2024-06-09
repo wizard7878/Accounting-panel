@@ -5,9 +5,9 @@ from .models import User
 
 class UserAdmin(admin.ModelAdmin):
     model = User
-    list_display = ['first_name','last_name','phonenumber', 'storename', 'phoneverified']
-    list_filter =  ['phoneverified']
-    list_display_links = ['phonenumber', 'first_name']
+    list_display = ['id', 'full_name','phonenumber', 'storename', 'phoneverified']
+    list_filter =  ['id', 'phoneverified']
+    list_display_links = ['id','phonenumber', 'full_name']
 
 
 admin.site.register(User, UserAdmin)
