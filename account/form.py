@@ -47,4 +47,27 @@ class SignupForm(forms.Form):
             if field:
                 field.widget.attrs.update({'class': 'form-control is-invalid'})
             
+
+class SigninForm(forms.Form): 
+    phone_number = forms.CharField() 
+    password = forms.CharField(widget=forms.PasswordInput())      
+
+
+    def clean_phone_number(self):
+        mobile_regex = "^09(1[0-9]|3[1-9])-?[0-9]{3}-?[0-9]{4}$"
+        phone_number = self.cleaned_data.get('phone_number')
+        if(re.search(mobile_regex, phone_number)):
+                return phone_number
+        else:
+            self.add_error('phone_number', "شماره همراه نامعتبر است")
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control form-icon-input'})
         
+        for field_name in self.errors:
+            field = self.fields.get(field_name)
+            if field:
+                field.widget.attrs.update({'class': 'form-control form-icon-input is-invalid'})
