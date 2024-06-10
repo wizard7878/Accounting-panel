@@ -1,4 +1,5 @@
 from django import forms
+from .models import User
 import re
 
 class SignupForm(forms.Form):
@@ -12,7 +13,10 @@ class SignupForm(forms.Form):
         mobile_regex = "^09(1[0-9]|3[1-9])-?[0-9]{3}-?[0-9]{4}$"
         phone_number = self.cleaned_data.get('phone_number')
         if(re.search(mobile_regex, phone_number)):
-            return phone_number
+            if User.objects.filter(phone_number=phone_number).exists():
+                self.add_error('phone_number', "شماره همراه قبلا ثبت نام شده است")
+            else:
+                return phone_number
         self.add_error('phone_number', "شماره همراه نامعتبر است")
         
     def clean(self):
