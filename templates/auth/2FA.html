@@ -26,7 +26,7 @@
           <div class="px-xxl-5">
             <div class="text-center mb-6">
               <h4 class="text-1000">کد تایید را وارد کنید</h4>
-              <p class="text-700 mb-0">کد تایید برای شماره موبایل {{phonenumber}}  ارسال شد</p>
+              <p class="text-700 mb-0">کد تایید برای شماره موبایل {{user.phonenumber}}  ارسال شد</p>
               <p class="fs--2 mb-5"></a></p>
               <form method="post" style="direction: ltr;" class="verification-form" data-2fa-varification="data-2FA-varification">
                 {% csrf_token %}
@@ -39,9 +39,12 @@
                   <input name="num6" class="form-control px-2 text-center" type="number" disabled="disabled"></div>
                 <div class="form-check text-start mb-4"></div><button id="otp-submit" class="btn btn-primary w-100 mb-5" type="submit">تایید </button>
                 <div id="some_div"></div>
-                
-                <a id="send-sms-again" style="display: none;" class="fs--1" href="#!">ارسال دوباره پیامک</a>
-              </form>
+                </form>
+                  <form method="post">
+      
+                    {% csrf_token %}
+                  <button name="send-sms-again" type="submit" id="send-sms-again" style="display: none;" class="btn btn-outline-warning w-75" href="">ارسال دوباره پیامک</button>
+                </form>
 
               
 
@@ -74,4 +77,23 @@
             document.body.appendChild(script);
         });
 </script>
+
+
+<script>
+  // Function to check if the page is being reloaded
+  function isPageReload() {
+      return performance.navigation.type === performance.navigation.TYPE_RELOAD;
+  }
+
+  // Function to handle the page reload event
+  function handlePageReload() {
+      if (isPageReload()) {
+          window.location.href = "{% url 'signup' %}" // Redirect URL
+      }
+  }
+
+  // Execute the handlePageReload function when the DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', handlePageReload);
+</script>
+
 </body></html>
