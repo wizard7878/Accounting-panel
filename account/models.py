@@ -39,7 +39,7 @@ class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     full_name = models.CharField(max_length=200, blank=True, null=True)
     phonenumber = models.CharField(max_length=11, unique=True,)
-    otp_code = models.IntegerField(max_length=6,null=True, blank=True)
+    otp_code = models.IntegerField(null=True, blank=True)
     storename = models.CharField(max_length=100)
     phoneverified = models.BooleanField(default=False)
     
@@ -49,5 +49,5 @@ class User(AbstractUser):
     objects = UserManager()
 
     def __str__(self) -> str:
-        return self.first_name + " " + self.last_name 
+        return self.storename
 
