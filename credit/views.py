@@ -30,6 +30,7 @@ def index(request):
         for customer in customers:
             data.append(
                 {
+                    'id': customer.id,
                     'phone_number': customer.phone_number,
                     'full_name': customer.full_name,
                     'joined': str(customer.joined),

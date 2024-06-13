@@ -17,13 +17,13 @@ function find_customer(search){
                 html += `
                 
                 <tr class="hover-actions-trigger btn-reveal-trigger position-static">
-                      <td class="customer align-middle white-space-nowrap"><a class="d-flex align-items-center text-900 text-hover-1000" href="#!">
+                      <td class="customer align-middle white-space-nowrap"><a class="d-flex align-items-center text-900 text-hover-1000" href="/${data[i].id}/customer">
                           <div class="avatar avatar-m">
                             <div class="avatar-name rounded-circle"><span>R</span></div>
                           </div>
                           <h6 class="mb-0 ms-3 fw-semi-bold">${data[i].full_name}</h6>
                         </a></td>
-                      <td class="email align-middle white-space-nowrap"><a class="fw-semi-bold ">${data[i].phone_number}</a></td>
+                      <td class="email align-middle white-space-nowrap"><a class="fw-semi-bold " href="/${data[i].id}/customer">${data[i].phone_number}</a></td>
                       <td class="mobile_number align-middle white-space-nowrap"><a class="fw-bold text-1100" href="">${data[i].address}</a></td>
                       <td class="city align-middle white-space-nowrap text-2000 fw-semi-bold">${data[i].active_credit === false ? '<span class="badge badge-phoenix badge-phoenix-success">تسویه شده</span>' :'<span class="badge badge-phoenix badge-phoenix-danger"> تسویه نشده</span>' }</td>
                       <td class="last_active align-middle text-end white-space-nowrap text-2000 fw-semi-bold">${data[i].joined}</td>
