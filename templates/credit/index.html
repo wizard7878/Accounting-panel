@@ -155,6 +155,8 @@
 
   
     <div class="content">
+      
+
       <div class="position-fixed w-100 z-index-5 mx-n4 mx-lg-n6 bg-white border-bottom border-300" style="top: 65px">
         <nav class="simplebar-scrollspy navbar py-0 scrollbar-overlay" id="widgets-scrollspy" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px -24px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="left: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px 24px;">
           <ul class="nav">
@@ -167,7 +169,7 @@
       <div class="mb-9" data-bs-spy="scroll" data-bs-target="#widgets-scrollspy">
         
         
-        
+      
         
         
         
@@ -196,7 +198,7 @@
                     <h5 class="mb-0 text-900">56</h5>
                   </div>
                 
-                
+               
                 </div>
                 <div class="col-12 col-md-6">
                   <div class="position-relative mb-sm-4 mb-xl-0">
@@ -210,9 +212,13 @@
         </div>
         
         
-        
-        <div id="customers" class="pt-3">
-          
+        <div id="customers" class="pt-3"> 
+          {% for error in createCustomerForm.phone_number.errors %}
+          <div class="alert alert-soft-danger alert-dismissible fade show w-50" role="alert">
+            <p>{{error}}</p>
+            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %}  
           <h2 class="text-bold text-1100 mb-5">تمام مشتریان</h2>
           <div data-list="{&quot;valueNames&quot;:[&quot;customer&quot;,&quot;email&quot;,&quot;mobile_number&quot;,&quot;city&quot;,&quot;last_active&quot;,&quot;joined&quot;],&quot;page&quot;:10,&quot;pagination&quot;:true}">
             <div class="row align-items-center justify-content-between g-3 mb-4">
@@ -225,7 +231,9 @@
                 </div>
                  <!-- end customer Searcher -->
               </div>
+       
               <div class="col-auto">
+              
                 <div class="d-flex align-items-center"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#rialaccount"><svg class="svg-inline--fa fa-plus me-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"></path></svg><!-- <span class="fas fa-plus me-2"></span> Font Awesome fontawesome.com -->ایجاد حساب برای مشتری</button></div>
                 <!--Modal-->
                 <div class="modal fade" id="rialaccount" tabindex="-1" aria-labelledby="verticallyCenteredModalLabel" aria-hidden="true">
@@ -235,20 +243,20 @@
                         <h5 class="modal-title" id="verticallyCenteredModalLabel">ایجاد حساب جدید</h5><button class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close"><svg class="svg-inline--fa fa-xmark fs--1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="xmark" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"></path></svg><!-- <span class="fas fa-times fs--1"></span> Font Awesome fontawesome.com --></button>
                       </div>
                       <div class="modal-body">
-                        <form class="row g-3">
-                      
+                        <form class="row g-3" method="post">
+                          {% csrf_token %}
                           <div class="col-md-8">
                             <p for="date">شماره همراه</p>
                             <!-- <label >تاریخ</label> -->
-                            <input class="form-control" id="phone-number" type="text">
+                            {{createCustomerForm.phone_number}}
                           </div>
                           
                           
                           
                           
+                          </div>
+                        <div class="modal-footer"><button  class="btn btn-primary" type="submit">تایید</button><button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">لغو</button></div>
                         </form>
-                      </div>
-                      <div class="modal-footer"><button class="btn btn-primary" type="button">تایید</button><button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">لغو</button></div>
                     </div>
                   </div>
                 </div>
@@ -283,7 +291,7 @@
                           </div>
                           <h6 class="mb-0 ms-3 fw-semi-bold">{{customer.full_name}}</h6>
                         </a></td>
-                      <td class="email align-middle white-space-nowrap"><a class="fw-semi-bold ">{{customer.phone_number}}</a></td>
+                      <td class="email align-middle white-space-nowrap"><a href="{% url 'customer' customer.id %}" class="fw-semi-bold ">{{customer.phone_number}}</a></td>
                       <td class="mobile_number align-middle white-space-nowrap"><a class="fw-bold text-1100" href="">{{customer.address}}</a></td>
                       <td class="city align-middle white-space-nowrap text-2000 fw-semi-bold">{% if customer.active_credit %} <span class="badge badge-phoenix badge-phoenix-danger">تسویه نشده</span> {% else %} <span class="badge badge-phoenix badge-phoenix-success">تسویه شده</span> {% endif %}</td>
                       <td class="last_active align-middle text-end white-space-nowrap text-2000 fw-semi-bold">{{customer.joined}}</td>
