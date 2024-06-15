@@ -21,6 +21,7 @@ class Payment(models.Model):
     def __str__(self) -> str:
         return str(self.payment_date)
 
+
 class AccountsReceivable(models.Model):
     AccountsReceivable_CHOICES = (
         ('G', 'grami'),
@@ -33,7 +34,7 @@ class AccountsReceivable(models.Model):
     installments = models.IntegerField(null=True, blank=True, verbose_name="تعداد اقساط")
     interest_rates = models.FloatField(verbose_name="درصد سود", blank=True, null=True)
     debit = models.BooleanField(default=True,verbose_name="بدهی")
-    payment = models.ManyToManyField(Payment, null=True, verbose_name="پرداختی ها")
+    payment = models.ManyToManyField(Payment, verbose_name="پرداختی ها")
 
     def __str__(self) -> str:
         return self.type + " " + str(self.created)
@@ -48,14 +49,30 @@ class Customer(models.Model):
     referal = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
     joined = jmodels.jDateField(auto_now_add=True)
     active_credit = models.BooleanField(default=False)
-    AccountsReceivable = models.ManyToManyField(AccountsReceivable, null=True)
+    AccountsReceivable = models.ManyToManyField(AccountsReceivable)
 
     def __str__(self) -> str:
         return self.full_name
     
+class Products(models.Model):
+    name = models.CharField(max_length=200)
+    weight = models.FloatField()
+    price = models.IntegerField()
+    bio = models.TextField()
+
 
 class Factor(models.Model):
     created = jmodels.jDateField(auto_now_add=True)
-    total_weight = models.FloatField(verbose_name="مجموع وزن به گرم")
+    total_weight = models.FloatField(verbose_name="مجموع وزن به گرم",null=True, blank=True)
     total_price = models.IntegerField(verbose_name="مجموع قیمت به ریال", null=True, blank=True)
     code = models.SlugField()
+    products = models.ManyToManyField(Products)
+    seller = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+    accountsReceivable = models.BooleanField(default=False) # make sure factor linked to account
+
+
+
+
+
+
