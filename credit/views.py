@@ -4,9 +4,10 @@ from django.views import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from .models import Customer, Factor, Products
+from .models import Customer, Factor, Products, Payment, AccountsReceivable
 from .forms import CreateCustomerForm, CustomerChangeInfoForm
 import jdatetime
+from datetime import datetime
 # Create your views here.
 
 @login_required(login_url='/account/login/')
@@ -153,3 +154,153 @@ class CustomerCredit(View, LoginRequiredMixin):
             customer = Customer.objects.get(seller=request.user, id=id)
             Factor.objects.get(seller=request.user, customer=customer, accountsReceivable=False).delete()
             return redirect('customer', id)
+        
+
+        if request.POST.get('create-account') == 'create-long':
+            customer = Customer.objects.get(seller=request.user, id=id)
+            customer.active_credit = True
+            customer.save()
+
+            factor = Factor.objects.get(seller=request.user, customer=customer, accountsReceivable=False)
+            factor.accountsReceivable = True
+            factor.save()
+
+            received = int(request.POST.get('long-received') or 0)
+            meltedprice = int(request.POST.get('long-meltedprice'))
+            date = request.POST.get('long-date').replace('/', '-')
+            
+            accountsReceivable = AccountsReceivable.objects.create(
+                type='L',
+            )
+            if request.POST.get('long-borrow') == 'on':
+                borrow = round((factor.total_price - received) / meltedprice, 3)
+                accountsReceivable.borrow = borrow
+
+            
+            
+                
+            grami_remain = round((factor.total_price - received) / meltedprice , 3)
+
+            payment = Payment.objects.create(
+                payment_date = jdatetime.datetime.strptime(date, "%Y-%m-%d"),
+                liquidated_price = meltedprice,
+                payment_received = received,
+                installment = 0,
+                Account_balance_in_gram = grami_remain
+            )
+            accountsReceivable.payment.add(payment)
+            accountsReceivable.save()
+            customer.AccountsReceivable.add(accountsReceivable)
+                     
+            
+            if grami_remain == 0:
+                accountsReceivable.debit = False
+                accountsReceivable.save()
+                if not customer.AccountsReceivable.filter(debit=True).exists():
+                    customer.active_credit = False
+            else:         
+                customer.active_credit = True
+                customer.save()
+                
+
+            
+
+        if request.POST.get('create-account') == 'create-grami':
+            customer = Customer.objects.get(seller=request.user, id=id)
+            
+            factor = Factor.objects.get(seller=request.user, customer=customer, accountsReceivable=False)
+            
+
+            received = int(request.POST.get('grami-received') or 0)
+            meltedprice = int(request.POST.get('grami-meltedprice'))
+            date = request.POST.get('grami-date').replace('/', '-')
+            installments = request.POST.get('grami-installments')
+            
+            accountsReceivable = AccountsReceivable.objects.create(
+                type='G',
+                installments = installments,
+            )
+            factor.accountsReceivable = True
+            factor.save()
+
+            if request.POST.get('grami-borrow') == 'on':
+                borrow = round((factor.total_price - received) / meltedprice, 3)
+                accountsReceivable.borrow = borrow
+
+            grami_remain = round((factor.total_price - received) / meltedprice , 3)
+
+            payment = Payment.objects.create(
+                payment_date = jdatetime.datetime.strptime(date, "%Y-%m-%d"),
+                liquidated_price = meltedprice,
+                payment_received = received,
+                installment = 0,
+                Account_balance_in_gram = grami_remain
+            )
+
+            accountsReceivable.payment.add(payment)
+            accountsReceivable.save()
+            customer.AccountsReceivable.add(accountsReceivable)
+
+            if grami_remain == 0:
+                accountsReceivable.debit = False
+                accountsReceivable.save()
+                if not customer.AccountsReceivable.filter(debit=True).exists():
+                    customer.active_credit = False
+                    customer.save()
+            else:         
+                customer.active_credit = True
+                customer.save()
+
+            return redirect('customer', id)
+
+        if request.POST.get('create-account') == 'create-riali':
+            print(request.POST)
+            customer = Customer.objects.get(seller=request.user, id=id)
+            factor = Factor.objects.get(seller=request.user, customer=customer, accountsReceivable=False)
+
+            received = int(request.POST.get('riali-received') or 0) #رسید
+            meltedprice = int(request.POST.get('riali-meltedprice')) #آبشده
+            date = request.POST.get('riali-date').replace('/', '-')  # تاریخ
+            installments = int(request.POST.get('riali-installments')) #تعداد اقساط
+            interest_rates = float(request.POST.get('riali-interest_rates')) #درصد سود
+
+            accountsReceivable = AccountsReceivable.objects.create(
+                type='R',
+                installments = installments,
+                interest_rates = interest_rates
+            )
+
+            factor.accountsReceivable = True
+            factor.save()
+            riali_remain = (((installments * interest_rates) / 100 ) * (factor.total_price - received) + factor.total_price - received)
+            grami_remain = None
+            if request.POST.get('riali-borrow') == 'on':
+                borrow = round(riali_remain / meltedprice , 2)
+                accountsReceivable.borrow = borrow
+
+            payment = Payment.objects.create(
+                payment_date = jdatetime.datetime.strptime(date, "%Y-%m-%d"),
+                liquidated_price = meltedprice,
+                payment_received = received,
+                installment = 0,
+                Account_balance_in_rial = riali_remain,
+                Account_balance_in_gram = 0 # NOT ADDED
+            )
+
+            accountsReceivable.payment.add(payment)
+            accountsReceivable.save()
+            customer.AccountsReceivable.add(accountsReceivable)
+
+            if riali_remain == 0:
+                accountsReceivable.debit = False
+                accountsReceivable.save()
+                if not customer.AccountsReceivable.filter(debit=True).exists():
+                    customer.active_credit = False
+                    customer.save()
+            else:         
+                customer.active_credit = True
+                customer.save()
+
+            return redirect('customer', id)
+
+            print("riali")

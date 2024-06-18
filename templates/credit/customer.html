@@ -158,21 +158,7 @@
             </div>
           </a>
         </div>
-        <div class="search-box navbar-top-search-box d-none d-lg-block"
-          data-list="{&quot;valueNames&quot;:[&quot;title&quot;]}" style="width:25rem;">
-          <form class="position-relative" data-bs-toggle="search" data-bs-display="static" aria-expanded="false"><input
-              class="form-control search-input fuzzy-search rounded-pill form-control-sm" type="search"
-              placeholder="Search..." aria-label="Search">
-            <svg class="svg-inline--fa fa-magnifying-glass search-box-icon" aria-hidden="true" focusable="false"
-              data-prefix="fas" data-icon="magnifying-glass" role="img" xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512" data-fa-i2svg="">
-              <path fill="currentColor"
-                d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z">
-              </path>
-            </svg><!-- <span class="fas fa-search search-box-icon"></span> Font Awesome fontawesome.com -->
-          </form>
 
-        </div>
         <ul class="navbar-nav navbar-nav-icons flex-row">
           <li class="nav-item">
             <div class="theme-control-toggle fa-icon-wait px-2"><input
@@ -440,8 +426,8 @@
 
                 <div class="d-flex align-items-center">
                   <div class="search-box me-3">
-                    <form class="position-relative" data-bs-toggle="search" data-bs-display="static"><input
-                        class="form-control search-input search" type="search" placeholder="Search projects"
+                    <form class="position-relative" data-bs-toggle="search" data-bs-display="static"><input id="test"
+                        class="form-control search-input search" type="text" placeholder="Search projects"
                         aria-label="Search">
                       <svg class="svg-inline--fa fa-magnifying-glass search-box-icon" aria-hidden="true"
                         focusable="false" data-prefix="fas" data-icon="magnifying-glass" role="img"
@@ -459,16 +445,18 @@
                 {% if factor_created %}
                 <button class="btn btn-danger col-12 col-sm-auto mb-2" type="button" data-bs-toggle="modal"
                   data-bs-target="#delete-factor">حذف فاکتور </button>
+                  <button class="btn btn-success col-12 col-sm-auto mb-2" type="button" data-bs-toggle="modal"
+                    data-bs-target="#new-account">ایجاد حساب جدید</button>
                 {% else %}
                 <button class="btn btn-info col-12 col-sm-auto mb-2" type="button" data-bs-toggle="modal"
                   data-bs-target="#new-factor">فاکتور جدید</button>
+                  <button class="btn btn-success col-12 col-sm-auto mb-2 disabled" type="button" data-bs-toggle="modal"
+                    data-bs-target="#new-account">ایجاد حساب جدید</button>
                 {% endif %}
-                <button class="btn btn-warning col-12 col-sm-auto mb-2" type="button" data-bs-toggle="modal"
-                  data-bs-target="#grami-account">ایجاد حساب گرمی جدید</button>
-                <button class="btn btn-info col-12 col-sm-auto mb-2" type="button" data-bs-toggle="modal"
-                  data-bs-target="#riali-account">ایجاد حساب ریالی جدید</button>
-                <button class="btn btn-success col-12 col-sm-auto mb-2" type="button" data-bs-toggle="modal"
-                  data-bs-target="#long-account">ایجاد حساب بلند مدت جدید</button>
+
+
+
+
 
                 {% if factor_created %}
                 <!-- حذف فاکتور -->
@@ -530,7 +518,7 @@
 
 
                               </tr>
-                                {% endfor %}
+                              {% endfor %}
 
                             </tbody>
                           </table>
@@ -538,10 +526,12 @@
                         <!--End factor------------------------------->
                         <!-- END MODAL BODY ----------------------------->
 
-                        <div class="modal-footer"><form method="post">
-                          {% csrf_token %}
-                          <button id="delete-factor" name="delete-factor" class="btn btn-danger"
-                            type="submit">حذف فاکتور</button></form>
+                        <div class="modal-footer">
+                          <form method="post">
+                            {% csrf_token %}
+                            <button id="delete-factor" name="delete-factor" class="btn btn-danger" type="submit">حذف
+                              فاکتور</button>
+                          </form>
                           <button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">لغو</button>
                         </div>
 
@@ -623,7 +613,7 @@
                         <!--End factor------------------------------->
                         <!-- END MODAL BODY ----------------------------->
 
-                        
+
                       </div>
 
 
@@ -640,181 +630,130 @@
 
 
 
-                <!--ایجاد حساب گرمی جدید-->
-                <div class="modal fade" id="grami-account" tabindex="-1" data-bs-backdrop="static"
-                  aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
-                  <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                      <div class="modal-header bg-warning">
-                        <h5 class="modal-title text-white" id="staticBackdropLabel">ایجاد حساب گرمی جدید</h5><button
-                          class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close"><svg
-                            class="svg-inline--fa fa-xmark fs--1 text-white" aria-hidden="true" focusable="false"
-                            data-prefix="fas" data-icon="xmark" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512" data-fa-i2svg="">
-                            <path fill="currentColor"
-                              d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z">
-                            </path>
-                          </svg><!-- <span class="fas fa-times fs--1 text-white"></span> Font Awesome fontawesome.com --></button>
+                <!--ایجاد حساب جدید-->
+                <div id="AccountsReceivable">
+                  <div class="modal fade" id="new-account" tabindex="-1" data-bs-backdrop="static"
+                    aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header bg-danger">
+                          <h5 class="modal-title text-white" id="staticBackdropLabel">ایجاد حساب جدید</h5><button
+                            class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close"><svg
+                              class="svg-inline--fa fa-xmark fs--1 text-white" aria-hidden="true" focusable="false"
+                              data-prefix="fas" data-icon="xmark" role="img" xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 320 512" data-fa-i2svg="">
+                              <path fill="currentColor"
+                                d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z">
+                              </path>
+                            </svg><!-- <span class="fas fa-times fs--1 text-white"></span> Font Awesome fontawesome.com --></button>
+                        </div>
+                        <form method="post">
+                          {% csrf_token %}
+                        <div class="modal-body">
+                          <p for="organizerSingle">نوع حساب</p>
+                          <select class="form-select w-30 col-md-12 mb-6" id="organizerSingle"
+                            data-choices="data-choices" name="create-account">
+
+                            <option value="create-riali">حساب ریالی</option>
+                            <option value="create-grami">حساب گرمی</option>
+                            <option value="create-long">حساب بلند مدت</option>
+
+                          </select>
+                          <div class="row g-3" id="create-riali">
+                            <div class="col-md-4">
+                              <p for="date">تاریخ</p>
+                              <input name="riali-date" class="form-control" id="date" data-jdp>
+                            </div>
+
+                            <div class="col-md-4">
+                              <p for="meltedprice">فی آبشده</p>
+                              <input name="riali-meltedprice" class="form-control" id="meltedprice" type="number">
+                            </div>
+                            <div class="col-md-4">
+                              <p for="received">رسیده</p>
+                              <input class="form-control" name="riali-received" id="received" type="number">
+                            </div>
+
+                            <div class="col-md-4">
+                              <p for="installments">تعداد اقساط</p>
+                              <input class="form-control" name="riali-installments" id="installments" type="number">
+                            </div>
+
+                            <div class="col-md-4">
+                              <p for="interest_rates">درصد سود</p>
+                              <input class="form-control" name="riali-interest_rates" id="interest_rates" type="number" step="0.1" min="0">
+                            </div>
+
+                            <div class="col-md-4">
+                              <p for="borrow">محاسبه امانت</p>
+                              <input class="form-check-input" id="riali-borrow" name="riali-borrow" type="checkbox">
+                            </div>
+
+                          </div>
+
+
+
+                          <div style="display: none;" class="row g-3" id="create-grami">
+                            
+                            <div class="col-md-4">
+                              <p for="date">تاریخ</p>
+                              <input class="form-control" name="grami-date" id="date" data-jdp>
+                            </div>
+
+                            <div class="col-md-4">
+                              <p for="meltedprice">فی آبشده</p>
+                              <input class="form-control" id="meltedprice" name="grami-meltedprice" type="number">
+                            </div>
+                            <div class="col-md-4">
+                              <p for="received">رسیده</p>
+                              <input class="form-control" id="received" name="grami-received" type="number">
+                            </div>
+
+                            <div class="col-md-4">
+                              <p for="installments">تعداد اقساط</p>
+                              <input class="form-control" id="installments" name="grami-installments" type="number">
+                            </div>
+
+                            <div class="col-md-4">
+                              <p for="">محاسبه امانت</p>
+                              <input class="form-check-input" name="grami-borrow" type="checkbox">
+                            </div>
+
+                          </div>
+
+                          <div style="display: none;" class="row g-3" id="create-long">                 
+                            <div class="col-4">
+                              <p for="date">تاریخ</p>
+                              <input class="form-control" id="date" name="long-date" data-jdp>
+                            </div>
+
+                            <div class="col-4">
+                              <p for="meltedprice">فی آبشده</p>
+                              <input class="form-control" name="long-meltedprice" type="number">
+                            </div>
+                            <div class="col-4">
+                              <p for="received">رسیده</p>
+                              <input class="form-control" name="long-received" type="number">
+                            </div>
+
+                            <div class="col-md-4">
+                              <p for="borrow">محاسبه امانت</p>
+                              <input class="form-check-input" id="borrow" name="long-borrow" type="checkbox">
+                            </div>
+
+
+                          </div>
+                          
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-warning" type="submit">ایجاد
+                            حساب</button><button class="btn btn-outline-primary" type="button"
+                            data-bs-dismiss="modal">لغو</button></div>
+                          </form>
                       </div>
-                      <div class="modal-body">
-                        <form class="row g-3">
-
-                          <div class="col-md-4">
-                            <p for="date">تاریخ</p>
-                            <!-- <label >تاریخ</label> -->
-                            <input class="form-control" id="date" type="text">
-                          </div>
-                          <div class="col-md-4">
-                            <p for="date">کد فاکتور</p>
-                            <!-- <label >تاریخ</label> -->
-                            <input class="form-control" id="date" type="text">
-                          </div>
-                          <div class="col-md-4">
-                            <p for="meltedprice">فی آبشده</p>
-                            <input class="form-control" id="meltedprice" type="text">
-                          </div>
-                          <div class="col-md-4">
-                            <p for="received">رسیده</p>
-                            <input class="form-control" id="received" type="text">
-                          </div>
-
-                          <div class="col-md-4">
-                            <p for="received">تعداد اقساط</p>
-                            <input class="form-control" id="received" type="number">
-                          </div>
-
-                          <div class="col-md-4">
-                            <p for="">محاسبه امانت</p>
-                            <input class="form-check-input" id="received" type="checkbox">
-                          </div>
-
-
-
-                        </form>
-                      </div>
-                      <div class="modal-footer"><button class="btn btn-warning" type="button">Okay</button><button
-                          class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel</button></div>
                     </div>
                   </div>
                 </div>
-                <!--پایان ایجاد حساب گرمی جدید-->
-
-
-
-
-
-                <!--ایجاد حساب ریالی جدید-->
-                <div class="modal fade" id="riali-account" tabindex="-1" data-bs-backdrop="static"
-                  aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
-                  <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                      <div class="modal-header bg-primary">
-                        <h5 class="modal-title text-white" id="staticBackdropLabel">ایجاد حساب ریالی جدید</h5><button
-                          class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close"><svg
-                            class="svg-inline--fa fa-xmark fs--1 text-white" aria-hidden="true" focusable="false"
-                            data-prefix="fas" data-icon="xmark" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512" data-fa-i2svg="">
-                            <path fill="currentColor"
-                              d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z">
-                            </path>
-                          </svg><!-- <span class="fas fa-times fs--1 text-white"></span> Font Awesome fontawesome.com --></button>
-                      </div>
-                      <div class="modal-body">
-                        <form class="row g-3">
-
-                          <div class="col-md-4">
-                            <p for="date">تاریخ</p>
-                            <!-- <label >تاریخ</label> -->
-                            <input class="form-control" id="date" type="text">
-                          </div>
-                          <div class="col-md-4">
-                            <p for="date">کد فاکتور</p>
-                            <!-- <label >تاریخ</label> -->
-                            <input class="form-control" id="date" type="text">
-                          </div>
-                          <div class="col-md-4">
-                            <p for="meltedprice">فی آبشده</p>
-                            <input class="form-control" id="meltedprice" type="text">
-                          </div>
-                          <div class="col-md-4">
-                            <p for="received">رسیده</p>
-                            <input class="form-control" id="received" type="text">
-                          </div>
-
-                          <div class="col-md-4">
-                            <p for="received">تعداد اقساط</p>
-                            <input class="form-control" id="received" type="number">
-                          </div>
-
-                          <div class="col-md-4">
-                            <p for="">محاسبه امانت</p>
-                            <input class="form-check-input" id="received" type="checkbox">
-                          </div>
-
-
-
-                        </form>
-                      </div>
-                      <div class="modal-footer"><button class="btn btn-primary" type="button">Okay</button><button
-                          class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel</button></div>
-                    </div>
-                  </div>
-                </div>
-                <!--پایان ایجاد حساب ریالی جدید-->
-
-                <!--ایجاد حساب بلند مدت جدید-->
-                <div class="modal fade" id="long-account" tabindex="-1" data-bs-backdrop="static"
-                  aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
-                  <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                      <div class="modal-header bg-success">
-                        <h5 class="modal-title text-white" id="staticBackdropLabel">ایجاد حساب بلند مدت</h5><button
-                          class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close"><svg
-                            class="svg-inline--fa fa-xmark fs--1 text-white" aria-hidden="true" focusable="false"
-                            data-prefix="fas" data-icon="xmark" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512" data-fa-i2svg="">
-                            <path fill="currentColor"
-                              d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z">
-                            </path>
-                          </svg><!-- <span class="fas fa-times fs--1 text-white"></span> Font Awesome fontawesome.com --></button>
-                      </div>
-                      <div class="modal-body">
-                        <form class="row g-3">
-
-                          <div class="col-md-2">
-                            <p for="date">تاریخ</p>
-                            <!-- <label >تاریخ</label> -->
-                            <input class="form-control" id="date" type="text">
-                          </div>
-                          <div class="col-md-2">
-                            <p for="date">کد فاکتور</p>
-                            <!-- <label >تاریخ</label> -->
-                            <input class="form-control" id="date" type="text">
-                          </div>
-                          <div class="col-md-4">
-                            <p for="meltedprice">فی آبشده</p>
-                            <input class="form-control" id="meltedprice" type="text">
-                          </div>
-                          <div class="col-md-4">
-                            <p for="received">رسیده</p>
-                            <input class="form-control" id="received" type="text">
-                          </div>
-
-
-
-
-                        </form>
-                      </div>
-                      <div class="modal-footer"><button class="btn btn-success" type="button">Okay</button><button
-                          class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel</button></div>
-                    </div>
-                  </div>
-                </div>
-                <!--پایان ایجاد حساب بلند مدت جدید-->
-
-
-
-
+                <!--پایان ایجاد حساب  جدید-->
 
 
                 <!--END MODAL FACTOR AND ACCOUNTANT--------------------------------------------->
@@ -3821,6 +3760,46 @@
         }
 
       })
+    })
+
+
+
+  </script>
+
+  <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+  <script type="text/javascript"
+    src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+      jalaliDatepicker.startWatch({ container: '#new-account' });
+
+      document.getElementById('create-riali').style.display = 'inline-flex'
+      document.getElementById('create-grami').style.display = 'none'
+      document.getElementById('create-long').style.display = 'none'
+
+      document.getElementById('organizerSingle').addEventListener('change', function () {
+        const selectedValue = this.value;
+        console.log(this.value)
+        const riali = document.getElementById('create-riali');
+        const grami = document.getElementById('create-grami');
+        const long = document.getElementById('create-long');
+
+        if (selectedValue === 'create-long') {
+          riali.style.display = 'none'
+          grami.style.display = 'none'
+          long.style.display = 'inline-flex'
+        } else if (selectedValue === 'create-grami') {
+          riali.style.display = 'none'
+          grami.style.display = 'inline-flex'
+          long.style.display = 'none'
+        }
+        else {
+          riali.style.display = 'inline-flex'
+          grami.style.display = 'none'
+          long.style.display = 'none'
+        }
+      });
     })
 
 
