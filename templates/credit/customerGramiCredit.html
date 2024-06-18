@@ -1,0 +1,366 @@
+<html lang="en-US" dir="rtl" class="chrome windows fontawesome-i2svg-active fontawesome-i2svg-complete"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Phoenix</title>
+  
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/favicons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicons/favicon-16x16.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicons/favicon.ico' %}">
+    <link rel="manifest" href="{% static 'assets/img/favicons/manifest.json' %}">
+    <meta name="msapplication-TileImage" content="{% static 'assets/img/favicons/mstile-150x150.png' %}">
+    <meta name="theme-color" content="#ffffff">
+    <script src="{% static 'vendors/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendors/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/js/config.js' %}"></script>
+    {% include '_partials/_styles-assets.html ' %}
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="{% static 'vendors/choices/choices.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/dhtmlx-gantt/dhtmlxgantt.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/flatpickr/flatpickr.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/glightbox/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/dropzone/dropzone.min.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
+      rel="stylesheet">
+    <link href="{% static 'vendors/simplebar/simplebar.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link href="{% static 'assets/css/theme-rtl.min.css' %}" type="text/css" rel="stylesheet" id="style-rtl">
+    <link href="{% static 'assets/css/theme.min.css' %}" type="text/css" rel="stylesheet" id="style-default" disabled="true">
+    <link href="{% static 'assets/css/user-rtl.min.css' %}" type="text/css" rel="stylesheet" id="user-style-rtl">
+    <link href="{% static 'assets/css/user.min.css' %}" type="text/css" rel="stylesheet" id="user-style-default" disabled="true">
+    
+    <script>
+      var phoenixIsRTL = window.config.config.phoenixIsRTL;
+      if (phoenixIsRTL) {
+        var linkDefault = document.getElementById('style-default');
+        var userLinkDefault = document.getElementById('user-style-default');
+        linkDefault.setAttribute('disabled', true);
+        userLinkDefault.setAttribute('disabled', true);
+        document.querySelector('html').setAttribute('dir', 'rtl');
+      } else {
+        var linkRTL = document.getElementById('style-rtl');
+        var userLinkRTL = document.getElementById('user-style-rtl');
+        linkRTL.setAttribute('disabled', true);
+        userLinkRTL.setAttribute('disabled', true);
+      }
+    </script>
+  <link rel="stylesheet" type="text/css" id="mce-u0" href="file:///D:/Projects/Django/Templates/Paid/Liyan_dashboard/vendors/tinymce/skins/ui/oxide/skin.min.css"></head>
+  
+  <body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+      <nav class="navbar navbar-vertical navbar-expand-lg">
+          <script>
+            var navbarStyle = window.config.config.phoenixNavbarStyle;
+            if (navbarStyle && navbarStyle !== 'transparent') {
+              document.querySelector('body').classList.add(`navbar-${navbarStyle}`);
+            }
+          </script>
+          <div class="navbar-collapse collapse" id="navbarVerticalCollapse" style="">
+            <!-- scrollbar removed-->
+            <div class="navbar-vertical-content">
+              <ul class="navbar-nav flex-column" id="navbarVerticalNav">
+                <li class="nav-item">
+                  <!-- parent pages-->
+                  <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#nv-home" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-home">
+                      <div class="d-flex align-items-center">
+                        <div class="dropdown-indicator-icon"><svg class="svg-inline--fa fa-caret-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M118.6 105.4l128 127.1C252.9 239.6 256 247.8 256 255.1s-3.125 16.38-9.375 22.63l-128 127.1c-9.156 9.156-22.91 11.9-34.88 6.943S64 396.9 64 383.1V128c0-12.94 7.781-24.62 19.75-29.58S109.5 96.23 118.6 105.4z"></path></svg><!-- <span class="fas fa-caret-right"></span> Font Awesome fontawesome.com --></div><span class="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pie-chart"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg></span><span class="nav-link-text">حسابداری</span>
+                      </div>
+                    </a>
+                    <div class="parent-wrapper label-1">
+                      <ul class="nav collapse parent show" data-bs-parent="#navbarVerticalCollapse" id="nv-home">
+                        <li class="collapsed-nav-item-title d-none">Home</li>
+                        <li class="nav-item"><a class="nav-link active" href="index.html" data-bs-toggle="" aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="uil-gold"></span><span class="nav-link-text">قلک طلا</span></div>
+                          </a><!-- more inner pages-->
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="dashboard/project-management.html" data-bs-toggle="" aria-expanded="false">
+                            <div class="d-flex align-items-center"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg><span class="nav-link-text">نسیه</span></div>
+                          </a><!-- more inner pages-->
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="dashboard/crm.html" data-bs-toggle="" aria-expanded="false">
+                            <div class="d-flex align-items-center"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span class="nav-link-text">مشتریان</span><span class="badge ms-2 badge badge-phoenix badge-phoenix-info ">New</span></div>
+                          </a><!-- more inner pages-->
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+               
+              
+              </ul>
+            </div>
+          </div>
+          <div class="navbar-vertical-footer"><button class="btn navbar-vertical-toggle border-0 fw-semi-bold w-100 white-space-nowrap d-flex align-items-center"><span class="uil uil-left-arrow-to-left fs-0"></span><span class="uil uil-arrow-from-right fs-0"></span><span class="navbar-vertical-footer-text ms-2">Collapsed View</span></button></div>
+        </nav>
+      <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
+          <div class="collapse navbar-collapse justify-content-between">
+            <div class="navbar-logo">
+              <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+              <a class="navbar-brand me-1 me-sm-3" href="index.html">
+                <div class="d-flex align-items-center">
+                  <div class="d-flex align-items-center"><img src="assets/img/icons/logo.png" alt="phoenix" width="27">
+                    <p class="logo-text ms-2 d-none d-sm-block">phoenix</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="search-box navbar-top-search-box d-none d-lg-block" data-list="{&quot;valueNames&quot;:[&quot;title&quot;]}" style="width:25rem;">
+              <form class="position-relative" data-bs-toggle="search" data-bs-display="static" aria-expanded="false"><input class="form-control search-input fuzzy-search rounded-pill form-control-sm" type="search" placeholder="Search..." aria-label="Search">
+                <svg class="svg-inline--fa fa-magnifying-glass search-box-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="magnifying-glass" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"></path></svg><!-- <span class="fas fa-search search-box-icon"></span> Font Awesome fontawesome.com -->
+              </form>
+  
+            </div>
+            <ul class="navbar-nav navbar-nav-icons flex-row">
+              <li class="nav-item">
+                <div class="theme-control-toggle fa-icon-wait px-2"><input class="form-check-input ms-0 theme-control-toggle-input" type="checkbox" data-theme-control="phoenixTheme" value="dark" id="themeControlToggle"><label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Switch theme" data-bs-original-title="Switch theme"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></label><label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Switch theme" data-bs-original-title="Switch theme"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></label></div>
+              </li>
+   
+              <li class="nav-item dropdown"><a class="nav-link lh-1 pe-0" id="navbarDropdownUser" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                  <div class="avatar avatar-l ">
+                    <img class="rounded-circle " src="assets/img/team/40x40/57.webp" alt="">
+                  </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border border-300" aria-labelledby="navbarDropdownUser">
+                  <div class="card position-relative border-0">
+                    <div class="card-body p-0">
+                      <div class="text-center pt-4 pb-3">
+                        <div class="avatar avatar-xl ">
+                          <img class="rounded-circle " src="assets/img/team/72x72/57.webp" alt="">
+                        </div>
+                        <h6 class="mt-2 text-black">مهرداد نیازی</h6>
+                      </div>
+                    </div>
+                    <div class="overflow-auto scrollbar" style="height: 10rem;">
+                      <ul class="nav d-flex flex-column mb-2 pb-1">
+                        <li class="nav-item"><a class="nav-link px-3" href="#!"> <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user me-2 text-900"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span>پروفایل</span></a></li>
+                        <li class="nav-item"><a class="nav-link px-3" href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pie-chart me-2 text-900"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>داشبورد</a></li>
+                      </ul>
+                    </div>
+                    <div class="">
+                      
+                      <div class="px-3"> <a class="btn btn-phoenix-secondary d-flex flex-center w-100" href="#!"> <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out me-2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>خروج</a></div>
+                      <div class="my-2 text-center fw-bold fs--2 text-600"><a class="text-600 me-1" href="#!">Privacy policy</a>•<a class="text-600 mx-1" href="#!">Terms</a>•<a class="text-600 ms-1" href="#!">Cookies</a></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div class="content">
+            <h4> پرداخت و نمایش بدهی ها  (حساب گرمی)</h4>
+            <div class="mt-4">
+              <button class="btn btn-info col-12 col-sm-auto mb-2" type="button" data-bs-toggle="modal" data-bs-target="#factor">نمایش فاکتور این حساب</button>
+              
+              <button class="btn btn-info col-12 col-sm-auto mb-2" data-bs-toggle="modal" data-bs-target="#debt">پرداخت بدهی</button>
+              <button class="btn btn-danger col-12 col-sm-auto mb-2">حذف حساب</button>
+              <div class="modal fade" id="factor" tabindex="-1" data-bs-backdrop="static" aria-labelledby="factorLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                      <h5 class="modal-title text-white" id="factorLabel">فاکتور</h5>
+                    </div>
+                    <div class="modal-body">
+                      <!--MODAL BODY ----------------------------->
+                      
+                      <!--Factor----------------------------------->
+                      <div class="table-responsive mx-n1 px-1 scrollbar">
+                        <table class="table fs--1 mb-0 border-top border-200">
+                          <thead>
+                            <tr>
+                              
+                              
+                              <th class="sort white-space-nowrap align-middle" scope="col" style="min-width:160px;" data-sort="product">نام محصول</th>
+                              <th class="sort align-middle" scope="col" data-sort="customer" style="min-width:200px;">وزن</th>
+                              <th class="sort align-middle" scope="col" data-sort="rating" style="min-width:110px;">توضیحات</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody class="list" id="table-latest-review-body"><tr class="hover-actions-trigger btn-reveal-trigger position-static">
+                              
+                              <td class="align-middle product white-space-nowrap"><a class="fw-semi-bold" href="apps/e-commerce/landing/product-details.html">گردنبند نقره</a></td>
+                              <td class="align-middle customer white-space-nowrap"><a class="d-flex align-items-center text-900" href="apps/e-commerce/landing/profile.html">
+                                 
+                                  <h6 class="mb-0 ms-3 text-900">۴.۶ گرم</h6>
+                                </a></td>
+
+                                
+                              <td class="align-middle product white-space-nowrap">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ لورم <br/> ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</td>
+                           
+                              
+                              
+                              
+                              
+                             
+                            </tr></tbody>
+                        </table>
+                      </div>
+                       <!--End factor------------------------------->
+                      <!-- END MODAL BODY ----------------------------->
+                    </div>
+                    <div class="modal-footer"></button><button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">بستن</button></div>
+                  </div>
+                </div>
+              </div>
+
+              
+            
+            <div class="modal fade" id="debt" tabindex="-1" data-bs-backdrop="static" aria-labelledby="LongLabel" style="display: none;" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h5 class="modal-title text-white" id="LongLabel">پرداخت بدهی</h5>
+                  </div>
+                  <div class="modal-body">
+                    <!--MODAL BODY ----------------------------->
+                    
+                    <!-- debt----------------------------------->
+                    
+                    <form class="row g-3">
+                      
+                      <div class="col-md-2">
+                        <p for="date">تاریخ</p>
+                        <!-- <label >تاریخ</label> -->
+                        <input class="form-control" id="date" type="text">
+                      </div>
+                      <div class="col-md-5">
+                        <p for="meltedprice">فی آبشده</p>
+                        <input class="form-control" id="meltedprice" type="text">
+                      </div>
+                      <div class="col-md-5">
+                        <p for="received">رسیده</p>
+                        <input class="form-control" id="received" type="text">
+                      </div>
+                      
+                      
+                      
+                      
+                    </form>
+                  
+                     <!--End debt------------------------------->
+                    <!-- END MODAL BODY ----------------------------->
+                  </div>
+                  <div class="modal-footer"></button><button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">بستن</button>
+                    <button class="btn btn-success" type="button">ثبت پرداخت</button>
+                  </div>
+                </div>
+              </div>
+            </div> 
+            
+          </div>
+            <div class="col-12 mt-4">
+              <div class="row gy-3 h-100">
+                <div class="col-12">
+                  <div class="card mb-3 h-100">
+                    
+                    <div class="card-body">
+                      <div class="table-responsive scrollbar">
+                      <table class="table border text-center border-top border-400">
+                        <thead>
+                          <tr>
+                            <th scope="col">تاریخ</th>
+                            <th scope="col">فی آبشده</th>
+                            <th scope="col">فاکتور</th>
+                            <th scope="col">رسیده</th>
+                            <th scope="col">امانت</th>
+                            <th scope="col">تعداد اقساط</th>
+                            <th scope="col"> مانده حساب گرم</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="table">
+                            <th scope="row">1403/12/6</th>
+                            <td>۳۴۰۴۰۰۰۰</td>
+                            <td>
+                            <table class="border text-center border-200">
+                              <tr>
+                                  <td>۵.۹۶۰ گرم</td>
+                                  
+                              </tr>
+                              <tr>
+                                <td class="border bg-black border-100"></td>
+                            </tr>
+                              <tr>
+                                  <td>۲۵۶۸۰۰۰۰۰</td>
+                               
+                              </tr>
+                          </table></td>
+                            <td>۱۵۶۸۰۰۰۰۰</td>
+                            <td>۳.۵۲۰ گرم</td>
+                            <td>۳ نوبت</td>
+                            <td>۱۰۰۰۰۰۰۰۰</td>
+                          </tr>
+                          <tr class="border border-500">
+                            <th scope="row">تاریخ</th>
+                            <th scope="row">فی آبشده</th>
+                            <th class=" text-center" colspan="2">رسیده</th>
+                            <th class="text-center" colspan="2">بستانکار</th>
+                            
+                            
+                            <th class="text-center" colspan="2">مانده حساب گرم</th>
+                          </tr>
+                          <tr>
+                            <td scope="row">۱۴۰۳/۵/۲۳</td>
+                            <td>۳۳۰۲۰۰۰۰۰</td>
+                            <td class=" text-center" colspan="2">۱۹۰۰۰۰۰۰</td>
+                            <td class=" text-center" colspan="2">۳۴۲۰۰۰۰۰۰</td>
+                            
+                            
+                            <td class="text-center" colspan="2">۳۸۸۳۰۰۰۰</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                      </div></div></div></div></div>
+          
+            
+        </div>
+      
+      
+
+    </main>
+
+          <!-- ===============================================-->
+  <!--    JavaScripts-->
+  <!-- ===============================================-->
+  <script src="vendors/popper/popper.min.js"></script>
+  <script src="vendors/bootstrap/bootstrap.min.js"></script>
+  <script src="vendors/anchorjs/anchor.min.js"></script>
+  <script src="vendors/is/is.min.js"></script>
+  <script src="vendors/fontawesome/all.min.js"></script>
+  <script src="vendors/lodash/lodash.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+  <script src="vendors/list.js/list.min.js"></script>
+  <script src="vendors/feather-icons/feather.min.js"></script>
+  <script src="vendors/dayjs/dayjs.min.js"></script>
+  <script src="vendors/choices/choices.min.js"></script>
+  <script src="vendors/echarts/echarts.min.js"></script>
+  <script src="vendors/dhtmlx-gantt/dhtmlxgantt.js"></script>
+  <script src="vendors/glightbox/glightbox.min.js"> </script>
+  <script src="vendors/tinymce/tinymce.min.js"></script>
+  <script src="vendors/dropzone/dropzone.min.js"></script>
+  <script src="assets/js/phoenix.js"></script>
+  <script src="assets/js/ecommerce-dashboard.js"></script>
+  <!-- <script src="assets/js/projectmanagement-dashboard.js"></script> -->
+  <script src="assets/js/crm-dashboard.js"></script>
+  <script src="assets/js/crm-analytics.js"></script>
+
+<script src="pie-chart.js"></script>
+
+
+</body></html>

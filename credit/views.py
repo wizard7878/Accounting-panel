@@ -69,6 +69,7 @@ class CustomerCredit(View, LoginRequiredMixin):
     
     def get(self, request, id, *args, **kwargs):
         customer = Customer.objects.get(seller=request.user, id=id)
+        accountsReceivable = customer.AccountsReceivable.all()
         customerChnageinfoform = CustomerChangeInfoForm(user=request.user, initial={
             'full_name': customer.full_name,
             'phone_number': customer.phone_number,
@@ -83,7 +84,8 @@ class CustomerCredit(View, LoginRequiredMixin):
             'customer': customer,
             'customerChnageinfoform': customerChnageinfoform,
             'factor_created' : factor.exists(),
-            'factor_products' : factor_products if factor.exists() else []
+            'factor_products' : factor_products if factor.exists() else [],
+            'accountsReceivable' : accountsReceivable
         }
         return render(request, "credit/customer.html", context)
     
@@ -178,7 +180,7 @@ class CustomerCredit(View, LoginRequiredMixin):
                 accountsReceivable.borrow = borrow
 
             
-            grami_remain = round((factor.total_price - received) / meltedprice , 3)
+            grami_remain = round((factor.total_price - received) / meltedprice , 2)
 
             payment = Payment.objects.create(
                 payment_date = jdatetime.datetime.strptime(date, "%Y-%m-%d"),
@@ -200,9 +202,7 @@ class CustomerCredit(View, LoginRequiredMixin):
             else:         
                 customer.active_credit = True
                 customer.save()
-                
-
-            
+    
 
         if request.POST.get('create-account') == 'create-grami':
             customer = Customer.objects.get(seller=request.user, id=id)
@@ -307,3 +307,62 @@ class CustomerCredit(View, LoginRequiredMixin):
 
 
 
+class CustomerRialiCreditView(View, LoginRequiredMixin):
+    login_url = '/account/login/'
+    pass
+
+class CustomerGramiCreditView(View, LoginRequiredMixin):
+    login_url = '/account/login/'
+    pass
+
+class CustomerLongCreditView(View, LoginRequiredMixin):
+    login_url = '/account/login/'
+    
+    def get(self, request, customerId, creditId, *args, **kwargs):
+        customer = Customer.objects.get(seller=request.user, id=customerId)
+        accountReceivable = customer.AccountsReceivable.get(id=creditId)
+        payments = accountReceivable.payment.all().order_by('installment')
+     
+        context = {
+            'accountReceivable': accountReceivable,
+            'payments': payments
+        }
+        return render(request, "credit/customerLongTermCredit.html", context)
+    
+    def post(self, request, customerId, creditId, *args, **kwargs):
+
+        if 'debt-payment' in request.POST:
+            customer = Customer.objects.get(id=customerId, seller = request.user)
+            accountsReceivable = AccountsReceivable.objects.get(id=creditId)
+            last_payment = accountsReceivable.payment.all().order_by('installment').last()
+
+
+            recived = int(request.POST.get('received'))
+            meltedprice = int(request.POST.get('meltedprice'))
+            date = request.POST.get('date').replace('/', '-')
+
+            creditor = round(float(recived / meltedprice), 2)
+
+            payment = Payment.objects.create(
+                payment_date = date,
+                liquidated_price = meltedprice,
+                payment_received = recived,
+                installment = last_payment.installment + 1,
+                creditor = creditor,
+                Account_balance_in_gram = round(float(last_payment.Account_balance_in_gram - creditor),2)
+            )
+
+            accountsReceivable.payment.add(payment)
+            accountsReceivable.save()
+
+            if payment.Account_balance_in_gram <= 0:
+                    accountsReceivable.debit = False
+                    accountsReceivable.save()
+                    if not customer.AccountsReceivable.filter(debit=True).exists():
+                        customer.active_credit = False
+                        customer.save()
+            else:         
+                customer.active_credit = True
+                customer.save()
+
+            return redirect('long-customer-account', customerId=customerId, creditId=creditId)

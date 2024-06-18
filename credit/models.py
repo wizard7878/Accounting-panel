@@ -13,6 +13,7 @@ class Payment(models.Model):
     liquidated_price = models.IntegerField(verbose_name="فی آبشده")
     payment_received = models.IntegerField(verbose_name="رسیده")
     installment = models.IntegerField(verbose_name="قسط")
+    creditor = models.CharField(max_length=30, verbose_name="بستانکار", null=True , blank=True)
     Account_balance_in_gram = models.FloatField(verbose_name="مانده به گِرم")
     Account_balance_in_rial = models.IntegerField(verbose_name="مانده به ریال", null=True, blank=True)
 
