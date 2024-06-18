@@ -8,8 +8,6 @@ import random
 # Create your models here.
 
 
-
-
 class Payment(models.Model):
     payment_date = jmodels.jDateField(default=datetime.datetime.now())
     liquidated_price = models.IntegerField(verbose_name="فی آبشده")
@@ -21,6 +19,24 @@ class Payment(models.Model):
     def __str__(self) -> str:
         return str(self.payment_date)
 
+    
+class Products(models.Model):
+    name = models.CharField(max_length=200)
+    weight = models.FloatField()
+    price = models.IntegerField()
+    bio = models.TextField()
+
+    
+class Factor(models.Model):
+    created = jmodels.jDateField(auto_now_add=True)
+    total_weight = models.FloatField(verbose_name="مجموع وزن به گرم",null=True, blank=True)
+    total_price = models.IntegerField(verbose_name="مجموع قیمت به ریال", null=True, blank=True)
+    code = models.SlugField()
+    products = models.ManyToManyField(Products)
+    seller = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    customer = models.ForeignKey('Customer', on_delete=models.SET_NULL, null=True)
+    accountsReceivable = models.BooleanField(default=False) # make sure factor linked to account
+
 
 class AccountsReceivable(models.Model):
     AccountsReceivable_CHOICES = (
@@ -29,6 +45,7 @@ class AccountsReceivable(models.Model):
         ('L', 'long-term'),
     )
     type = models.CharField(max_length=1, choices=AccountsReceivable_CHOICES, verbose_name="نوع حساب")
+    factor = models.OneToOneField(Factor, on_delete=models.CASCADE, default=None)
     created = jmodels.jDateField(auto_now_add=True)
     borrow = models.FloatField(null=True, blank=True,verbose_name="امانت")
     installments = models.IntegerField(null=True, blank=True, verbose_name="تعداد اقساط")
@@ -53,26 +70,3 @@ class Customer(models.Model):
 
     def __str__(self) -> str:
         return self.full_name
-    
-class Products(models.Model):
-    name = models.CharField(max_length=200)
-    weight = models.FloatField()
-    price = models.IntegerField()
-    bio = models.TextField()
-
-
-class Factor(models.Model):
-    created = jmodels.jDateField(auto_now_add=True)
-    total_weight = models.FloatField(verbose_name="مجموع وزن به گرم",null=True, blank=True)
-    total_price = models.IntegerField(verbose_name="مجموع قیمت به ریال", null=True, blank=True)
-    code = models.SlugField()
-    products = models.ManyToManyField(Products)
-    seller = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
-    accountsReceivable = models.BooleanField(default=False) # make sure factor linked to account
-
-
-
-
-
-

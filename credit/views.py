@@ -162,23 +162,22 @@ class CustomerCredit(View, LoginRequiredMixin):
             customer.save()
 
             factor = Factor.objects.get(seller=request.user, customer=customer, accountsReceivable=False)
-            factor.accountsReceivable = True
-            factor.save()
-
+            
             received = int(request.POST.get('long-received') or 0)
             meltedprice = int(request.POST.get('long-meltedprice'))
             date = request.POST.get('long-date').replace('/', '-')
             
             accountsReceivable = AccountsReceivable.objects.create(
                 type='L',
+                factor=factor
             )
+            factor.accountsReceivable = True
+            factor.save()
             if request.POST.get('long-borrow') == 'on':
                 borrow = round((factor.total_price - received) / meltedprice, 3)
                 accountsReceivable.borrow = borrow
 
             
-            
-                
             grami_remain = round((factor.total_price - received) / meltedprice , 3)
 
             payment = Payment.objects.create(
@@ -210,7 +209,6 @@ class CustomerCredit(View, LoginRequiredMixin):
             
             factor = Factor.objects.get(seller=request.user, customer=customer, accountsReceivable=False)
             
-
             received = int(request.POST.get('grami-received') or 0)
             meltedprice = int(request.POST.get('grami-meltedprice'))
             date = request.POST.get('grami-date').replace('/', '-')
@@ -219,6 +217,7 @@ class CustomerCredit(View, LoginRequiredMixin):
             accountsReceivable = AccountsReceivable.objects.create(
                 type='G',
                 installments = installments,
+                factor=factor
             )
             factor.accountsReceivable = True
             factor.save()
@@ -266,6 +265,7 @@ class CustomerCredit(View, LoginRequiredMixin):
 
             accountsReceivable = AccountsReceivable.objects.create(
                 type='R',
+                factor = factor,
                 installments = installments,
                 interest_rates = interest_rates
             )
@@ -304,3 +304,6 @@ class CustomerCredit(View, LoginRequiredMixin):
             return redirect('customer', id)
 
             print("riali")
+
+
+
