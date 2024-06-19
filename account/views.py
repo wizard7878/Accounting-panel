@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .form import SignupForm, SigninForm
 from .models import User
 # Create your views here.
@@ -64,6 +64,11 @@ def loginOtp(request):
 
     signinform = SigninForm()
     return render(request, "auth/sign-in.html", {'signinform': signinform})
+
+def logoutView(request):
+    logout(request)
+    return redirect('loginOtp')
+
 
 
 # Tools

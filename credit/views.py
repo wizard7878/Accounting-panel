@@ -476,7 +476,7 @@ def all_credits(seller):
         "R": 0,
     }
     total = 0
-    customers = Customer.objects.filter(seller=seller)
+    customers = Customer.objects.filter(seller=seller, active_credit=True)
     for customer in customers:
         accountsReceivablecustomer = customer.AccountsReceivable.filter(debit=True)
         for accountReceivable in accountsReceivablecustomer:
