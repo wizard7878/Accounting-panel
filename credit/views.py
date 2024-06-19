@@ -51,7 +51,7 @@ def index(request):
         else:
             context = {
             'customers' : page_obj,
-            'createCustomerForm': createCustomerForm
+            'createCustomerForm': createCustomerForm,
             }
             return render(request, "credit/index.html", context)
         
@@ -59,7 +59,8 @@ def index(request):
     createCustomerForm = CreateCustomerForm(user=request.user)    
     context = {
         'customers' : page_obj,
-        'createCustomerForm': createCustomerForm
+        'createCustomerForm': createCustomerForm,
+        'pieChartInfo': all_credits(request.user)
     }
     return render(request, "credit/index.html", context)
 
@@ -465,3 +466,24 @@ class CustomerLongCreditView(View, LoginRequiredMixin):
                 customer.save()
 
             return redirect('long-customer-account', customerId=customerId, creditId=creditId)
+        
+#Tools 
+
+def all_credits(seller):
+    credits = {
+        "L": 0,
+        "G": 0,
+        "R": 0,
+    }
+    total = 0
+    customers = Customer.objects.filter(seller=seller)
+    for customer in customers:
+        accountsReceivablecustomer = customer.AccountsReceivable.filter(debit=True)
+        for accountReceivable in accountsReceivablecustomer:
+            credits[accountReceivable.type] += 1
+    
+    for key,value in credits.items():
+        total += value
+        
+    credits['total'] = total
+    return credits

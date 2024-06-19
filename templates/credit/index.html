@@ -84,22 +84,23 @@
                   <p class="text-700 mb-md-7">تمامی حساب های نیسه اعم از ریالی ، گرمی ، بلند مدت</p>
                   <div class="d-flex align-items-center justify-content-between">
                     <p class="mb-0 fw-bold">نوع حساب </p>
-                    <p class="mb-0 fs--5">تمامی حساب ها <span class="fw-bold">257</span></p>
+                    <p class="mb-0 fs--5">تمامی حساب ها <span class="fw-bold">{{pieChartInfo.total}}</span></p>
                   </div>
                   <hr class="bg-200 mb-2 mt-2">
+                  
                   <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-info-300 bullet-item me-2"></span>
                     <p class="mb-0 fw-semi-bold text-900 lh-sm flex-1">حساب گرمی</p>
-                    <h5 class="mb-0 text-900">78</h5>
+                    <h5 class="mb-0 text-900">{{pieChartInfo.G}}</h5>
                   </div>
                   <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-warning-300 bullet-item me-2"></span>
                     <p class="mb-0 fw-semi-bold text-900 lh-sm flex-1">حساب های ریالی</p>
-                    <h5 class="mb-0 text-900">63</h5>
+                    <h5 class="mb-0 text-900">{{pieChartInfo.R}}</h5>
                   </div>
                   <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-danger-300 bullet-item me-2"></span>
                     <p class="mb-0 fw-semi-bold text-900 lh-sm flex-1">حساب های بلند مدت</p>
-                    <h5 class="mb-0 text-900">56</h5>
+                    <h5 class="mb-0 text-900">{{pieChartInfo.L}}</h5>
                   </div>
-                
+               
                
                 </div>
                 <div class="col-12 col-md-6">
@@ -239,10 +240,10 @@
       <footer class="footer position-absolute">
         <div class="row g-0 justify-content-between align-items-center h-100">
           <div class="col-12 col-sm-auto text-center">
-            <p class="mb-0 mt-2 mt-sm-0 text-900">Thank you for creating with Phoenix<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none">2023 ©<a class="mx-1" href="https://themewagon.com">Themewagon</a></p>
+            <p class="mb-0 mt-2 mt-sm-0 text-900">تهیه شده توسط پیمان شمال زاده 09361586911<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none">2024 ©<a class="mx-1" href="https://themewagon.com"></a></p>
           </div>
           <div class="col-12 col-sm-auto text-center">
-            <p class="mb-0 text-600">v1.13.0</p>
+            <p class="mb-0 text-600">v1.0.0</p>
           </div>
         </div>
       </footer>
@@ -259,5 +260,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'scripts/customer-searcher.js' %}"></script>
 <script src="{% static 'scripts/pie-chart.js' %}"></script>
+<script>
+  var riali = "{{pieChartInfo.R}}"
+  var grami = "{{pieChartInfo.G}}"
+  var long = "{{pieChartInfo.L}}"
+  pieChart(riali,grami,long)
+</script>
 
 </body></html>
