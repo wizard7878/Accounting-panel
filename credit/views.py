@@ -255,7 +255,6 @@ class CustomerCredit(View, LoginRequiredMixin):
             return redirect('customer', id)
 
         if request.POST.get('create-account') == 'create-riali':
-            print(request.POST)
             customer = Customer.objects.get(seller=request.user, id=id)
             factor = Factor.objects.get(seller=request.user, customer=customer, accountsReceivable=False)
 
@@ -305,7 +304,14 @@ class CustomerCredit(View, LoginRequiredMixin):
 
             return redirect('customer', id)
 
+        if "delete-accountReceivable" in request.POST:
+            accountsReceivable_id = int(request.POST.get('id'))
+            accountsReceivable = AccountsReceivable.objects.get(id=accountsReceivable_id)
+            for acpayment in accountsReceivable.payment.all():
+                Payment.objects.get(id=acpayment.id).delete()
+            accountsReceivable.delete()
 
+            return redirect('customer', id)
 
 
 class CustomerRialiCreditView(View, LoginRequiredMixin):

@@ -211,7 +211,11 @@
                             <td>{{accountReceivable.installments|persian_int}} نوبت</td>
                             <td>{{accountReceivable.interest_rates|persian_int}}٪</td>
                             <td>{{payment.Account_balance_in_gram|persian_int}} گرم</td>
+                            {% if accountReceivable.borrow %}
                             <td>{{accountReceivable.borrow|persian_int}} گرم</td>
+                            {% else %}
+                              <td>___</td>
+                              {% endif %}
                             <td>{{payment.Account_balance_in_rial|persian_int|split_three_digits}}</td>
                           </tr>
                           {% else %}
@@ -227,7 +231,11 @@
                           <tr>
                             <td scope="row">{{payment.payment_date|date:"Y/m/d"|persian_int}}</td>
                             <td>{{payment.liquidated_price|persian_int|split_three_digits}}</td>
+                            {% if payment.payment_received %}
                             <td class=" text-center" colspan="3">{{payment.payment_received|persian_int|split_three_digits}}</td>
+                            {% else %}
+                            <td class=" text-center" colspan="3">___</td>
+                            {% endif %}
                             <td class=" text-center" colspan="2">{{payment.creditor|persian_int|split_three_digits}}</td>
                             
                             

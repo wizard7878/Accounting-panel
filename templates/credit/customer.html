@@ -64,7 +64,7 @@
   <!-- ===============================================-->
   <main class="main" id="top">
     {% include "_partials/navbar-menu.html" %}
-    
+
     <div class="content">
 
       {% for error in customerChnageinfoform.phone_number.errors %}
@@ -238,7 +238,7 @@
             data-list="{&quot;valueNames&quot;:[&quot;projectName&quot;,&quot;assigness&quot;,&quot;start&quot;,&quot;deadline&quot;,&quot;task&quot;,&quot;projectprogress&quot;,&quot;status&quot;,&quot;action&quot;],&quot;page&quot;:6,&quot;pagination&quot;:true}">
             <div class="row mb-4 gx-6 gy-3 align-items-center">
               <div class="col-auto">
-                <h2 class="mb-0">حساب های مشتری<span class="fw-normal text-700 ms-3">(۳۲)</span></h2>
+                <h2 class="mb-0">حساب های مشتری<span class="fw-normal text-700 ms-3">({{customer.AccountsReceivable.count}})</span></h2>
               </div>
 
             </div>
@@ -657,8 +657,11 @@
                           
                           
                           ">جزئیات حساب</a>
-                          <!-- <a class="dropdown-item" href="#!">Export</a> -->
-                          <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">حذف</a>
+                          <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{accountReceivable.id}}">
+                          <div class="dropdown-divider"></div><input name="delete-accountReceivable" type="submit" class="dropdown-item text-danger" value="حذف">
+                          </form>
                         </div>
                       </div>
                     </td>
