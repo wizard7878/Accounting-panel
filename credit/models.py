@@ -14,7 +14,7 @@ class Payment(models.Model):
     payment_received = models.IntegerField(verbose_name="رسیده")
     installment = models.IntegerField(verbose_name="قسط")
     creditor = models.CharField(max_length=30, verbose_name="بستانکار", null=True , blank=True)
-    Account_balance_in_gram = models.FloatField(verbose_name="مانده به گِرم")
+    Account_balance_in_gram = models.FloatField(verbose_name="مانده به گِرم", null=True)
     Account_balance_in_rial = models.IntegerField(verbose_name="مانده به ریال", null=True, blank=True)
 
     def __str__(self) -> str:
@@ -47,7 +47,7 @@ class AccountsReceivable(models.Model):
     )
     type = models.CharField(max_length=1, choices=AccountsReceivable_CHOICES, verbose_name="نوع حساب")
     factor = models.OneToOneField(Factor, on_delete=models.CASCADE, default=None)
-    created = jmodels.jDateField(auto_now_add=True)
+    created = jmodels.jDateField(default=datetime.datetime.now())
     borrow = models.FloatField(null=True, blank=True,verbose_name="امانت")
     installments = models.IntegerField(null=True, blank=True, verbose_name="تعداد اقساط")
     interest_rates = models.FloatField(verbose_name="درصد سود", blank=True, null=True)

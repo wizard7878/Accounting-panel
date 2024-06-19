@@ -1,4 +1,5 @@
 {%load static%}
+{% load custom_tags %}
 <html lang="en-US" dir="rtl" class="chrome windows fontawesome-i2svg-active fontawesome-i2svg-complete">
 
 <head>
@@ -8633,12 +8634,12 @@
                                 <td class="align-middle customer white-space-nowrap"><a
                                     class="d-flex align-items-center text-900">
 
-                                    <h6 class="mb-0 ms-3 text-900">{{product.weight}}</h6>
+                                    <h6 class="mb-0 ms-3 text-900">{{product.weight|persian_int}}</h6>
                                   </a></td>
 
                                 <td class="align-middle customer white-space-nowrap ">
 
-                                  <h6 class="mb-0 ms-3 text-900">{{product.price}}</h6>
+                                  <h6 class="mb-0 ms-3 text-900">{{product.price|persian_int|split_three_digits}}</h6>
                                 </td>
                                 <td class="align-middle product white-space-nowrap">{{product.bio}}</td>
 
@@ -8734,26 +8735,26 @@
                     <tbody>
                       
                       <tr class="table">
-                        <th scope="row">{{payment.payment_date|date:"Y/m/d"}}</th>
-                        <td>{{payment.liquidated_price}}</td>
+                        <th scope="row">{{payment.payment_date|date:"Y/m/d"|persian_int}}</th>
+                        <td>{{payment.liquidated_price|persian_int|split_three_digits}}</td>
                         <td>
                           <table class="border border-200">
                             <tr>
-                              <td>{{accountReceivable.factor.total_weight}} گرم</td>
+                              <td>{{accountReceivable.factor.total_weight|persian_int}} گرم</td>
 
                             </tr>
                             <tr>
                               <td class="border bg-black border-100"></td>
                             </tr>
                             <tr>
-                              <td>{{accountReceivable.factor.total_price}} ریال</td>
+                              <td>{{accountReceivable.factor.total_price|persian_int|split_three_digits}} ریال</td>
 
                             </tr>
                           </table>
                         </td>
-                        <td>{{payment.payment_received}}</td>
-                        <td>{{accountReceivable.borrow}} گرم</td>
-                        <td>{{payment.Account_balance_in_gram}} گرم</td>
+                        <td>{{payment.payment_received|persian_int|split_three_digits}} ریال</td>
+                        <td>{{accountReceivable.borrow|persian_int}} گرم</td>
+                        <td>{{payment.Account_balance_in_gram|persian_int}} گرم</td>
                       </tr>
                       {% else %}
                       <tr class="border border-500">
@@ -8767,13 +8768,13 @@
                       </tr>
 
                       <tr>
-                        <td scope="row">{{payment.payment_date|date:"Y/m/d"}}</td>
-                        <td>{{payment.liquidated_price}} ریال</td>
-                        <td class=" text-center" colspan="2">{{payment.payment_received}} ریال</td>
-                        <td class=" text-center" colspan="1">{{payment.creditor}} گرم</td>
+                        <td scope="row">{{payment.payment_date|date:"Y/m/d"|persian_int}}</td>
+                        <td>{{payment.liquidated_price|persian_int|split_three_digits}} ریال</td>
+                        <td class=" text-center" colspan="2">{{payment.payment_received|persian_int|split_three_digits}} ریال</td>
+                        <td class=" text-center" colspan="1">{{payment.creditor|persian_int}} گرم</td>
 
 
-                        <td class="text-center" colspan="1">{{payment.Account_balance_in_gram}} گرم</td>
+                        <td class="text-center" colspan="1">{{payment.Account_balance_in_gram|persian_int}} گرم</td>
                       </tr>
                       {% endif %}
                       

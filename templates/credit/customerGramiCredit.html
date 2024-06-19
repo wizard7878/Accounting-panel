@@ -1,3 +1,5 @@
+{% load static %}
+{% load custom_tags %}
 <html lang="en-US" dir="rtl" class="chrome windows fontawesome-i2svg-active fontawesome-i2svg-complete"><head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -119,12 +121,7 @@
                 </div>
               </a>
             </div>
-            <div class="search-box navbar-top-search-box d-none d-lg-block" data-list="{&quot;valueNames&quot;:[&quot;title&quot;]}" style="width:25rem;">
-              <form class="position-relative" data-bs-toggle="search" data-bs-display="static" aria-expanded="false"><input class="form-control search-input fuzzy-search rounded-pill form-control-sm" type="search" placeholder="Search..." aria-label="Search">
-                <svg class="svg-inline--fa fa-magnifying-glass search-box-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="magnifying-glass" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"></path></svg><!-- <span class="fas fa-search search-box-icon"></span> Font Awesome fontawesome.com -->
-              </form>
-  
-            </div>
+            
             <ul class="navbar-nav navbar-nav-icons flex-row">
               <li class="nav-item">
                 <div class="theme-control-toggle fa-icon-wait px-2"><input class="form-check-input ms-0 theme-control-toggle-input" type="checkbox" data-theme-control="phoenixTheme" value="dark" id="themeControlToggle"><label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Switch theme" data-bs-original-title="Switch theme"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></label><label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Switch theme" data-bs-original-title="Switch theme"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></label></div>
@@ -181,33 +178,28 @@
                       <!--Factor----------------------------------->
                       <div class="table-responsive mx-n1 px-1 scrollbar">
                         <table class="table fs--1 mb-0 border-top border-200">
-                          <thead>
-                            <tr>
-                              
-                              
-                              <th class="sort white-space-nowrap align-middle" scope="col" style="min-width:160px;" data-sort="product">نام محصول</th>
-                              <th class="sort align-middle" scope="col" data-sort="customer" style="min-width:200px;">وزن</th>
-                              <th class="sort align-middle" scope="col" data-sort="rating" style="min-width:110px;">توضیحات</th>
-                              
-                            </tr>
-                          </thead>
-                          <tbody class="list" id="table-latest-review-body"><tr class="hover-actions-trigger btn-reveal-trigger position-static">
-                              
-                              <td class="align-middle product white-space-nowrap"><a class="fw-semi-bold" href="apps/e-commerce/landing/product-details.html">گردنبند نقره</a></td>
-                              <td class="align-middle customer white-space-nowrap"><a class="d-flex align-items-center text-900" href="apps/e-commerce/landing/profile.html">
-                                 
-                                  <h6 class="mb-0 ms-3 text-900">۴.۶ گرم</h6>
-                                </a></td>
+                          
+                          {% for product in accountReceivable.factor.products.all %}
+                              <tr class="hover-actions-trigger btn-reveal-trigger position-static">
 
-                                
-                              <td class="align-middle product white-space-nowrap">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ لورم <br/> ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</td>
-                           
-                              
-                              
-                              
-                              
-                             
-                            </tr></tbody>
+                                <td class="align-middle product white-space-nowrap">{{product.name}}</td>
+                                <td class="align-middle customer white-space-nowrap"><a
+                                    class="d-flex align-items-center text-900">
+
+                                    <h6 class="mb-0 ms-3 text-900">{{product.weight|persian_int}}</h6>
+                                  </a></td>
+
+                                <td class="align-middle customer white-space-nowrap ">
+
+                                  <h6 class="mb-0 ms-3 text-900">{{product.price|persian_int|split_three_digits}}</h6>
+                                </td>
+                                <td class="align-middle product white-space-nowrap">{{product.bio}}</td>
+
+
+                              </tr>
+                              {% endfor %}
+                  
+                          </tbody>
                         </table>
                       </div>
                        <!--End factor------------------------------->
@@ -222,43 +214,47 @@
             
             <div class="modal fade" id="debt" tabindex="-1" data-bs-backdrop="static" aria-labelledby="LongLabel" style="display: none;" aria-hidden="true">
               <div class="modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
-                  <div class="modal-header bg-primary">
-                    <h5 class="modal-title text-white" id="LongLabel">پرداخت بدهی</h5>
-                  </div>
-                  <div class="modal-body">
-                    <!--MODAL BODY ----------------------------->
-                    
-                    <!-- debt----------------------------------->
-                    
-                    <form class="row g-3">
-                      
-                      <div class="col-md-2">
-                        <p for="date">تاریخ</p>
-                        <!-- <label >تاریخ</label> -->
-                        <input class="form-control" id="date" type="text">
+                <form class="" method="post">
+                  <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                      <h5 class="modal-title text-white" id="LongLabel">پرداخت بدهی</h5>
+                    </div>
+                    <div class="modal-body">
+                      <!--MODAL BODY ----------------------------->
+      
+                      <!--Long term debt----------------------------------->
+      
+                      <div class="row g-3">
+                          {% csrf_token %}
+                          <input type="hidden" name="debt-payment">
+                        <div class="col-md-4">
+                          <p for="date">تاریخ</p>
+                          
+                          <input class="form-control" id="date" name="date" type="text">
+                        </div>
+                        <div class="col-md-4">
+                          <p for="meltedprice">فی آبشده</p>
+                          <input class="form-control" id="meltedprice" name="meltedprice" type="number">
+                        </div>
+                        <div class="col-md-4">
+                          <p for="received">رسیده</p>
+                          <input class="form-control" id="received" name="received" type="number">
+                        </div>
                       </div>
-                      <div class="col-md-5">
-                        <p for="meltedprice">فی آبشده</p>
-                        <input class="form-control" id="meltedprice" type="text">
-                      </div>
-                      <div class="col-md-5">
-                        <p for="received">رسیده</p>
-                        <input class="form-control" id="received" type="text">
-                      </div>
+      
+      
+      
                       
-                      
-                      
-                      
-                    </form>
-                  
-                     <!--End debt------------------------------->
-                    <!-- END MODAL BODY ----------------------------->
+      
+                      <!--End Long term debt------------------------------->
+                      <!-- END MODAL BODY ----------------------------->
+                    </div>
+                    <div class="modal-footer"></button><button class="btn btn-outline-primary" type="button"
+                        data-bs-dismiss="modal">بستن</button>
+                      <button class="btn btn-success" type="submit">ثبت پرداخت</button>
+                    </div>
                   </div>
-                  <div class="modal-footer"></button><button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">بستن</button>
-                    <button class="btn btn-success" type="button">ثبت پرداخت</button>
-                  </div>
-                </div>
+                </form>
               </div>
             </div> 
             
@@ -271,6 +267,8 @@
                     <div class="card-body">
                       <div class="table-responsive scrollbar">
                       <table class="table border text-center border-top border-400">
+                        {% for payment in payments %}
+                            {% if forloop.first %}
                         <thead>
                           <tr>
                             <th scope="col">تاریخ</th>
@@ -284,27 +282,29 @@
                         </thead>
                         <tbody>
                           <tr class="table">
-                            <th scope="row">1403/12/6</th>
-                            <td>۳۴۰۴۰۰۰۰</td>
+                            <th scope="row">{{payment.payment_date|date:"Y/m/d"|persian_int}}</th>
+                            <td>{{payment.liquidated_price|persian_int|split_three_digits}}</td>
                             <td>
                             <table class="border text-center border-200">
                               <tr>
-                                  <td>۵.۹۶۰ گرم</td>
+                                  <td>{{accountReceivable.factor.total_weight|persian_int}} گرم</td>
                                   
                               </tr>
                               <tr>
                                 <td class="border bg-black border-100"></td>
                             </tr>
                               <tr>
-                                  <td>۲۵۶۸۰۰۰۰۰</td>
+                                  <td>{{accountReceivable.factor.total_price|persian_int}} ریال</td>
                                
                               </tr>
                           </table></td>
-                            <td>۱۵۶۸۰۰۰۰۰</td>
-                            <td>۳.۵۲۰ گرم</td>
-                            <td>۳ نوبت</td>
-                            <td>۱۰۰۰۰۰۰۰۰</td>
+                            <td>{{payment.payment_received|persian_int}} گرم</td>
+                            <td>{{accountReceivable.borrow|persian_int}} گرم</td>
+                            <td>{{accountReceivable.installments|persian_int}} نوبت</td>
+                            <td>{{payment.Account_balance_in_gram|persian_int}} گرم</td>
                           </tr>
+
+                          {% else %}
                           <tr class="border border-500">
                             <th scope="row">تاریخ</th>
                             <th scope="row">فی آبشده</th>
@@ -315,15 +315,17 @@
                             <th class="text-center" colspan="2">مانده حساب گرم</th>
                           </tr>
                           <tr>
-                            <td scope="row">۱۴۰۳/۵/۲۳</td>
-                            <td>۳۳۰۲۰۰۰۰۰</td>
-                            <td class=" text-center" colspan="2">۱۹۰۰۰۰۰۰</td>
-                            <td class=" text-center" colspan="2">۳۴۲۰۰۰۰۰۰</td>
+                            <td scope="row">{{payment.payment_date|date:"Y/m/d"|persian_int}}</td>
+                            <td>{{payment.liquidated_price|persian_int|split_three_digits}}</td>
+                            <td class=" text-center" colspan="2">{{payment.payment_received|persian_int}}</td>
+                            <td class=" text-center" colspan="2">{{payment.creditor|persian_int}}</td>
                             
                             
-                            <td class="text-center" colspan="2">۳۸۸۳۰۰۰۰</td>
+                            <td class="text-center" colspan="2">{{payment.Account_balance_in_gram|persian_int}}</td>
                           </tr>
                         </tbody>
+                        {% endif %}
+                        {% endfor %}
                       </table>
                     </div>
                       </div></div></div></div></div>
@@ -334,33 +336,6 @@
       
 
     </main>
-
-          <!-- ===============================================-->
-  <!--    JavaScripts-->
-  <!-- ===============================================-->
-  <script src="vendors/popper/popper.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.min.js"></script>
-  <script src="vendors/anchorjs/anchor.min.js"></script>
-  <script src="vendors/is/is.min.js"></script>
-  <script src="vendors/fontawesome/all.min.js"></script>
-  <script src="vendors/lodash/lodash.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-  <script src="vendors/list.js/list.min.js"></script>
-  <script src="vendors/feather-icons/feather.min.js"></script>
-  <script src="vendors/dayjs/dayjs.min.js"></script>
-  <script src="vendors/choices/choices.min.js"></script>
-  <script src="vendors/echarts/echarts.min.js"></script>
-  <script src="vendors/dhtmlx-gantt/dhtmlxgantt.js"></script>
-  <script src="vendors/glightbox/glightbox.min.js"> </script>
-  <script src="vendors/tinymce/tinymce.min.js"></script>
-  <script src="vendors/dropzone/dropzone.min.js"></script>
-  <script src="assets/js/phoenix.js"></script>
-  <script src="assets/js/ecommerce-dashboard.js"></script>
-  <!-- <script src="assets/js/projectmanagement-dashboard.js"></script> -->
-  <script src="assets/js/crm-dashboard.js"></script>
-  <script src="assets/js/crm-analytics.js"></script>
-
-<script src="pie-chart.js"></script>
 
 
 </body></html>
