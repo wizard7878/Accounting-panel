@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 <html lang="en-US" dir="rtl" class="chrome windows fontawesome-i2svg-active fontawesome-i2svg-complete">
   <head>
   <meta charset="utf-8">
@@ -97,21 +98,21 @@
                   <p class="text-700 mb-md-7">تمامی حساب های نیسه اعم از ریالی ، گرمی ، بلند مدت</p>
                   <div class="d-flex align-items-center justify-content-between">
                     <p class="mb-0 fw-bold">نوع حساب </p>
-                    <p class="mb-0 fs--5">تمامی حساب ها <span class="fw-bold">{{pieChartInfo.total}}</span></p>
+                    <p class="mb-0 fs--5">تمامی حساب ها <span class="fw-bold">{{pieChartInfo.total|persian_int}}</span></p>
                   </div>
                   <hr class="bg-200 mb-2 mt-2">
                   
                   <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-info-300 bullet-item me-2"></span>
                     <p class="mb-0 fw-semi-bold text-900 lh-sm flex-1">حساب گرمی</p>
-                    <h5 class="mb-0 text-900">{{pieChartInfo.G}}</h5>
+                    <h5 class="mb-0 text-900">{{pieChartInfo.G|persian_int}}</h5>
                   </div>
                   <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-warning-300 bullet-item me-2"></span>
                     <p class="mb-0 fw-semi-bold text-900 lh-sm flex-1">حساب های ریالی</p>
-                    <h5 class="mb-0 text-900">{{pieChartInfo.R}}</h5>
+                    <h5 class="mb-0 text-900">{{pieChartInfo.R|persian_int}}</h5>
                   </div>
                   <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-danger-300 bullet-item me-2"></span>
                     <p class="mb-0 fw-semi-bold text-900 lh-sm flex-1">حساب های بلند مدت</p>
-                    <h5 class="mb-0 text-900">{{pieChartInfo.L}}</h5>
+                    <h5 class="mb-0 text-900">{{pieChartInfo.L|persian_int}}</h5>
                   </div>
                
                
@@ -190,7 +191,7 @@
                       <th class="sort align-middle pe-3" scope="col" data-sort="mobile_number" style="width:30%; min-width:200px;">آدرس</th>
                       <th class="sort align-middle" scope="col" data-sort="city" style="width:4%;">بدهی</th>
                       <th class="sort align-middle text-end" scope="col" data-sort="last_active" style="width:4%;  min-width:180px;">تاریخ</th>
-                      <th class="sort align-middle text-end pe-0" scope="col" data-sort="joined" style="width:4%;  min-width:200px;">بستن حساب</th>
+                      <!-- <th class="sort align-middle text-end pe-0" scope="col" data-sort="joined" style="width:4%;  min-width:200px;">بستن حساب</th> -->
                     </tr>
                   </thead>
                   <tbody id ="customer-table">
@@ -207,11 +208,11 @@
                           </div>
                           <h6 class="mb-0 ms-3 fw-semi-bold">{{customer.full_name}}</h6>
                         </a></td>
-                      <td class="email align-middle white-space-nowrap"><a href="{% url 'customer' customer.id %}" class="fw-semi-bold ">{{customer.phone_number}}</a></td>
+                      <td class="email align-middle white-space-nowrap"><a href="{% url 'customer' customer.id %}" class="fw-semi-bold ">{{customer.phone_number|persian_int}}</a></td>
                       <td class="mobile_number align-middle white-space-nowrap"><a class="fw-bold text-1100" href="">{{customer.address}}</a></td>
                       <td class="city align-middle white-space-nowrap text-2000 fw-semi-bold">{% if customer.active_credit %} <span class="badge badge-phoenix badge-phoenix-danger">تسویه نشده</span> {% else %} <span class="badge badge-phoenix badge-phoenix-success">تسویه شده</span> {% endif %}</td>
-                      <td class="last_active align-middle text-end white-space-nowrap text-2000 fw-semi-bold">{{customer.joined}}</td>
-                      <td class="joined align-middle white-space-nowrap text-2000 text-end fw-semi-bold"><button class="btn btn-danger">حذف</button></td>
+                      <td class="last_active align-middle text-end white-space-nowrap text-2000 fw-semi-bold">{{customer.joined|date:"Y/m/d"|persian_int}}</td>
+                      <!-- <td class="joined align-middle white-space-nowrap text-2000 text-end fw-semi-bold"><button class="btn btn-danger">حذف</button></td> -->
                     </tr>
                     {% endfor %}
                     {% endif %}
@@ -253,7 +254,7 @@
       <footer class="footer position-absolute">
         <div class="row g-0 justify-content-between align-items-center h-100">
           <div class="col-12 col-sm-auto text-center">
-            <p class="mb-0 mt-2 mt-sm-0 text-900">تهیه شده توسط پیمان شمال زاده 09361586911<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none">2024 ©<a class="mx-1" href="https://themewagon.com"></a></p>
+            <p class="mb-0 mt-2 mt-sm-0 text-900">تهیه شده توسط پیمان شمال زاده 09361586911<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none">2024 ©<a class="mx-1" href="@wizard7878"></a></p>
           </div>
           <div class="col-12 col-sm-auto text-center">
             <p class="mb-0 text-600">v1.0.0</p>

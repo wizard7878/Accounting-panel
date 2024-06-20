@@ -58,7 +58,7 @@
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
-  <link rel="stylesheet" type="text/css" id="mce-u0" href="file:///D:/Projects/Django/Templates/Paid/Liyan_dashboard/vendors/tinymce/skins/ui/oxide/skin.min.css"></head>
+  </head>
   
   <body>
     <!-- ===============================================-->
@@ -71,8 +71,8 @@
             <div class="mt-4">
               <button class="btn btn-info col-12 col-sm-auto mb-2" type="button" data-bs-toggle="modal" data-bs-target="#factor">نمایش فاکتور این حساب</button>
               
-              <button class="btn btn-info col-12 col-sm-auto mb-2" data-bs-toggle="modal" data-bs-target="#debt">پرداخت بدهی</button>
-              <button class="btn btn-danger col-12 col-sm-auto mb-2">حذف حساب</button>
+              <button class="btn btn-primary col-12 col-sm-auto mb-2" data-bs-toggle="modal" data-bs-target="#debt">پرداخت بدهی</button>
+              
               <div class="modal fade" id="factor" tabindex="-1" data-bs-backdrop="static" aria-labelledby="factorLabel" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable modal-lg">
                   <div class="modal-content">
@@ -137,7 +137,7 @@
                         <div class="col-md-4">
                           <p for="date">تاریخ</p>
                           
-                          <input class="form-control" id="date" name="date" type="text">
+                          <input class="form-control" id="date" name="date" data-jdp>
                         </div>
                         <div class="col-md-4">
                           <p for="meltedprice">فی آبشده</p>
@@ -249,7 +249,14 @@
         </div>
       
       
+        <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+        <script type="text/javascript"src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+        <script>
 
+          document.addEventListener('DOMContentLoaded', function () {
+            jalaliDatepicker.startWatch({ container: '#debt' });
+          })
+          </script>
     </main>
 
 

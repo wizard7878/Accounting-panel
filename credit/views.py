@@ -231,10 +231,10 @@ class CustomerCredit(View, LoginRequiredMixin):
             factor.save()
 
             if request.POST.get('grami-borrow') == 'on':
-                borrow = round((factor.total_price - received) / meltedprice, 3)
+                borrow = round((factor.total_price - received) / meltedprice, 2)
                 accountsReceivable.borrow = borrow
 
-            grami_remain = round((factor.total_price - received) / meltedprice , 3)
+            grami_remain = round((factor.total_price - received) / meltedprice , 2)
 
             payment = Payment.objects.create(
                 payment_date = jdatetime.datetime.strptime(date, "%Y-%m-%d"),
@@ -279,7 +279,7 @@ class CustomerCredit(View, LoginRequiredMixin):
 
             factor.accountsReceivable = True
             factor.save()
-            riali_remain = (((installments * interest_rates) / 100 ) * (factor.total_price - received) + factor.total_price - received)
+            riali_remain = ((((installments * interest_rates) / 100 ) * (factor.total_price - received)) + (factor.total_price - received))
             grami_remain = round(riali_remain / meltedprice, 2)
             if request.POST.get('riali-borrow') == 'on':
                 borrow = round(riali_remain / meltedprice , 2)
@@ -298,7 +298,7 @@ class CustomerCredit(View, LoginRequiredMixin):
             accountsReceivable.save()
             customer.AccountsReceivable.add(accountsReceivable)
 
-            if riali_remain == 0:
+            if riali_remain <= 0:
                 accountsReceivable.debit = False
                 accountsReceivable.save()
                 if not customer.AccountsReceivable.filter(debit=True).exists():
