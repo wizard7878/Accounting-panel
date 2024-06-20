@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 <html lang="en-US" dir="rtl" class="chrome windows fontawesome-i2svg-active fontawesome-i2svg-complete">
 
 <head>
@@ -620,11 +621,12 @@
                     
                     
                     <td class="align-middle white-space-nowrap ps-3 projectprogress">
-                      <p class="text-800 fs--2 mb-0">3 / 1</p>
+                      
+                      <p class="text-800 fs--2 mb-0">{% with id=accountReceivable.id|to_str %} {{Calculation_payment_percentage|get_item:id }}%  </p>
                       <div class="progress" style="height:3px;">
-                        <div class="progress-bar bg-success" style="width: 33%; direction: rtl;" role="progressbar" aria-valuenow="0"
+                        <div class="progress-bar bg-success" style="width: {{Calculation_payment_percentage|get_item:id }}%; direction: rtl;" role="progressbar" aria-valuenow="0"
                           aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
+                      </div>{% endwith %}
                     </td>
                     {% if accountReceivable.debit %}
                     <td class="align-middle white-space-nowrap text-end statuses">

@@ -143,20 +143,24 @@
               </div>
               <div class="overflow-auto scrollbar" style="height: 10rem;">
                 <ul class="nav d-flex flex-column mb-2 pb-1">
-                  <li class="nav-item"><a class="nav-link px-3" href="#!"> <svg xmlns="http://www.w3.org/2000/svg"
+                  <li class="nav-item"><a data-bs-toggle="modal"
+                    data-bs-target="#change-password" class="nav-link px-3" href="#!"> <svg xmlns="http://www.w3.org/2000/svg"
                         width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-user me-2 text-900">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
-                      </svg><span>پروفایل</span></a></li>
-                  <li class="nav-item"><a class="nav-link px-3" href="#!"><svg xmlns="http://www.w3.org/2000/svg"
+                      </svg><span>تغییر رمز عبور</span></a></li>
+
+                      
+
+                  <!-- <li class="nav-item"><a class="nav-link px-3" href="#!"><svg xmlns="http://www.w3.org/2000/svg"
                         width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-pie-chart me-2 text-900">
                         <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
                         <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
-                      </svg>داشبورد</a></li>
+                      </svg>داشبورد</a></li> -->
                 </ul>
               </div>
               <div class="">
@@ -176,3 +180,53 @@
       </ul>
     </div>
   </nav>
+
+
+  <div class="modal fade" id="change-password" tabindex="-1" data-bs-backdrop="static"
+                    aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <form method="post" action="{% url 'change-password' %}"> {% csrf_token %}
+                      <div class="modal-content">
+                        <div class="modal-header bg-danger">
+                          <h5 class="modal-title text-white" id="staticBackdropLabel">تغییر رمز عبور</h5><button
+                            class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close"><svg
+                              class="svg-inline--fa fa-xmark fs--1 text-white" aria-hidden="true" focusable="false"
+                              data-prefix="fas" data-icon="xmark" role="img" xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 320 512" data-fa-i2svg="">
+                              <path fill="currentColor"
+                                d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z">
+                              </path>
+                            </svg><!-- <span class="fas fa-times fs--1 text-white"></span> Font Awesome fontawesome.com --></button>
+                        </div>
+                        <!-- <form method="post"> -->
+                          
+                          
+                        <div class="modal-body">
+                          
+                          <div class="row g-3" id="change-password">
+                            
+                            
+                              <div class="col-md-4">
+                                <p for="received">رمز عبور فعلی</p>
+                                {{ changePasswordForm.old_password }}
+                              </div>
+                              <div class="col-md-4">
+                              <p for="meltedprice">رمز عبور جدید</p>
+                              {{ changePasswordForm.new_password1 }}
+                            </div>
+                            <div class="col-md-4">
+                              <p for="received">تکرار رمز عبور جدید</p>
+                              {{ changePasswordForm.new_password2 }}
+                            </div>
+                          </div>
+
+                          
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-danger" type="submit">تغییر رمز
+                          </button>
+                          <button class="btn btn-outline-primary" type="button"
+                            data-bs-dismiss="modal">لغو</button> </form></div>
+                          <!-- </form> -->
+                      </div>
+                    </div>
+                  </div>

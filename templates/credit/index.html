@@ -63,7 +63,7 @@
   
     <div class="content">
       
-
+    
       <div class="position-fixed w-100 z-index-5 mx-n4 mx-lg-n6 bg-white border-bottom border-300" style="top: 65px">
         <nav class="simplebar-scrollspy navbar py-0 scrollbar-overlay" id="widgets-scrollspy" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px -24px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="left: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px 24px;">
           <ul class="nav">
@@ -74,10 +74,23 @@
         </div></div></div></div><div class="simplebar-placeholder" style="width: 1010px; height: 49px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none;"></div></div></nav>
       </div>
       <div class="mb-9" data-bs-spy="scroll" data-bs-target="#widgets-scrollspy">
-    
         <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-white pt-6 pb-3 mt-6">
           <div class="row">
             <div class="col-12 col-xl-7 col-xxl-6">
+              {% for message in messages %}
+                {% if message.tags == 'error' %}
+                  <div class="alert alert-soft-danger alert-dismissible fade show w-50" role="alert">
+                    <p>{{message}}</p>
+                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  {% else %}
+
+                  <div class="alert alert-soft-success alert-dismissible fade show w-50" role="alert">
+                    <p>{{message}}</p>
+                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  {% endif %}
+          {% endfor %}
               <div class="row g-3 mb-3">
                 <div class="col-12 col-md-6">
                   <h3 class="text-1100 text-nowrap">نسیه</h3>

@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from .models import Customer, Factor, Products, Payment, AccountsReceivable
 from .forms import CreateCustomerForm, CustomerChangeInfoForm
+from account.form import ChangePasswordForm
 import jdatetime
 from datetime import datetime
 # Create your views here.
@@ -44,23 +45,26 @@ def index(request):
         return JsonResponse({'data': data})
     
     if request.method == 'POST':
-        createCustomerForm = CreateCustomerForm(request.POST, user=request.user)
-        if createCustomerForm.is_valid():
-            new_customer = Customer.objects.create(seller= request.user ,phone_number=request.POST.get('phone_number'))
-            return redirect('customer',new_customer.id)
-        else:
-            context = {
-            'customers' : page_obj,
-            'createCustomerForm': createCustomerForm,
-            }
-            return render(request, "credit/index.html", context)
+        if 'phone_number' in request.POST:
+            createCustomerForm = CreateCustomerForm(request.POST, user=request.user)
+            if createCustomerForm.is_valid():
+                new_customer = Customer.objects.create(seller= request.user ,phone_number=request.POST.get('phone_number'))
+                return redirect('customer',new_customer.id)
+            else:
+                context = {
+                'customers' : page_obj,
+                'createCustomerForm': createCustomerForm,
+                }
+                return render(request, "credit/index.html", context)
         
 
-    createCustomerForm = CreateCustomerForm(user=request.user)    
+    createCustomerForm = CreateCustomerForm(user=request.user)
+    changePasswordForm = ChangePasswordForm(user=request.user)    
     context = {
         'customers' : page_obj,
         'createCustomerForm': createCustomerForm,
-        'pieChartInfo': all_credits(request.user)
+        'pieChartInfo': all_credits(request.user),
+        'changePasswordForm': changePasswordForm
     }
     return render(request, "credit/index.html", context)
 
@@ -86,7 +90,8 @@ class CustomerCredit(View, LoginRequiredMixin):
             'customerChnageinfoform': customerChnageinfoform,
             'factor_created' : factor.exists(),
             'factor_products' : factor_products if factor.exists() else [],
-            'accountsReceivable' : accountsReceivable
+            'accountsReceivable' : accountsReceivable,
+            'Calculation_payment_percentage': Calculation_payment_percentage(customer)
         }
         return render(request, "credit/customer.html", context)
     
@@ -487,3 +492,30 @@ def all_credits(seller):
         
     credits['total'] = total
     return credits
+
+
+def Calculation_payment_percentage(customer):
+    credits = customer.AccountsReceivable.all()
+    data = {
+
+    }
+    for credit in credits:
+        if credit.type == 'G' or credit.type == 'L':
+            total_weight = credit.factor.total_weight
+            last_payment = credit.payment.all().order_by('payment_date').last()
+
+            paid = (total_weight - last_payment.Account_balance_in_gram)
+            percentage = round((paid / total_weight) * 100)
+            data[f'{credit.id}'] = percentage
+
+        if credit.type == 'R':
+            recived = 0
+            total_weight = credit.factor.total_weight
+            last_payment = credit.payment.all().order_by('payment_date').last()
+            for payment in credit.payment.all():
+                recived += payment.payment_received
+
+            paid_gram = recived / last_payment.liquidated_price
+            percentage = round((paid_gram / total_weight) * 100)
+            data[f'{credit.id}'] = percentage
+    return data

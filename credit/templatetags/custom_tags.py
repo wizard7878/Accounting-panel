@@ -15,3 +15,13 @@ def split_three_digits(value):
     if not isinstance(value, str):
         value = str(value)
     return ','.join([value[max(i-3, 0):i] for i in range(len(value), 0, -3)][::-1])
+
+
+@register.filter
+def to_str(value):
+    """converts int to string"""
+    return str(value)
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)

@@ -1,8 +1,12 @@
 from django.shortcuts import render , redirect
-from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .form import SignupForm, SigninForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from .form import SignupForm, SigninForm, ChangePasswordForm
 from .models import User
+
+from credit.views import index
 # Create your views here.
 
 def signupOtp(request):
@@ -23,8 +27,11 @@ def signupOtp(request):
         else:
             return render(request, "auth/sign-up.html", context={'signupform': signupForm})
     else:
-        signupForm = SignupForm()
-        return render(request, "auth/sign-up.html", context={'signupform': signupForm})
+        if request.user.is_authenticated:
+            return redirect('credit')
+        else:
+            signupForm = SignupForm()
+            return render(request, "auth/sign-up.html", context={'signupform': signupForm})
     
 
 def verify_otp(request, id):
@@ -41,7 +48,7 @@ def verify_otp(request, id):
             user.phoneverified = True
             user.save()
             login(request, user)
-            return HttpResponse("OK")  ####### Home Page
+            return redirect('credit')
     return render(request, "auth/2fa.html", {'user': user})
 
 
@@ -61,15 +68,36 @@ def loginOtp(request):
                 return render(request, "auth/sign-in.html", {'signinform': signinform})
         else:
             return render(request, "auth/sign-in.html", {'signinform': signinform})
+    else:    
+        if request.user.is_authenticated:
+            return redirect('credit')
+        else:
+            signinform = SigninForm()
+            return render(request, "auth/sign-in.html", {'signinform': signinform})
 
-    signinform = SigninForm()
-    return render(request, "auth/sign-in.html", {'signinform': signinform})
-
+@login_required(login_url='/account/login/')
 def logoutView(request):
+    request.user.phoneverified = False
+    request.user.save()
     logout(request)
     return redirect('loginOtp')
 
-
+@login_required(login_url='/account/login/')
+def changePassword(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = ChangePasswordForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Keeps the user logged in after password change
+                messages.success(request, 'تغییر رمز عبور با موفقیت انجام شد')
+                return redirect('credit')
+            else:
+                messages.error(request, 'تغییر رمز عبور با خطا مواجه شد')                
+        else:
+            return redirect('credit')
+        return redirect('credit')
+        
 
 # Tools
 import random

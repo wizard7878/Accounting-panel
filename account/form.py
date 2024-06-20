@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import PasswordChangeForm
 from .models import User
 import re
 
@@ -71,3 +72,37 @@ class SigninForm(forms.Form):
             field = self.fields.get(field_name)
             if field:
                 field.widget.attrs.update({'class': 'form-control form-icon-input is-invalid'})
+
+class ChangePasswordForm(PasswordChangeForm):
+    # old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    # password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    # password_confirm = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+
+    # def clean(self):
+        # cleaned_data = super().clean()
+        # password = self.cleaned_data.get('new_password1')
+        # password_confirm = self.cleaned_data.get('new_password2')
+        # if re.match("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])", password):
+        #     if len(password) >= 8:
+        #         if password == password_confirm:
+        #             return cleaned_data
+        #         else:
+        #             self.add_error('new_password1', "رمز عبور و تکرار آن ها یکسان نیستند")
+        #     else:
+        #         self.add_error('new_password1', "رمز عبور باید ۸ کارکتر یا بیشتر باشد")
+        # else:
+        #      self.add_error('new_password1', "رمز عبور باید دارای حروف کوچک و بزرگ همراه با عدد و ... باشد")
+        #      self.add_error('new_password2', "رمز عبور باید دارای حروف کوچک و بزرگ همراه با عدد و ... باشد")
+
+
+    def __init__(self, *args, **kwargs):
+        super(ChangePasswordForm, self).__init__(*args, **kwargs)
+        self.fields['old_password'].widget.attrs.update({'class': 'form-control'})
+        self.fields['new_password1'].widget.attrs.update({'class': 'form-control'})
+        self.fields['new_password2'].widget.attrs.update({'class': 'form-control'})
+
+        for field_name in self.errors:
+            field = self.fields.get(field_name)
+            if field:
+                field.widget.attrs.update({'class': 'form-control is-invalid'})
