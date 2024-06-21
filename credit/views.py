@@ -75,6 +75,9 @@ class CustomerCredit(View, LoginRequiredMixin):
     def get(self, request, id, *args, **kwargs):
         customer = Customer.objects.get(seller=request.user, id=id)
         accountsReceivable = customer.AccountsReceivable.all().order_by('-created')
+        paginator = Paginator(accountsReceivable, 30)
+        page_number = request.GET.get('page')
+        accountsReceivable_obj = paginator.get_page(page_number)
         customerChnageinfoform = CustomerChangeInfoForm(user=request.user, initial={
             'full_name': customer.full_name,
             'phone_number': customer.phone_number,
@@ -90,7 +93,7 @@ class CustomerCredit(View, LoginRequiredMixin):
             'customerChnageinfoform': customerChnageinfoform,
             'factor_created' : factor.exists(),
             'factor_products' : factor_products if factor.exists() else [],
-            'accountsReceivable' : accountsReceivable,
+            'accountsReceivable' : accountsReceivable_obj,
             'Calculation_payment_percentage': Calculation_payment_percentage(customer)
         }
         return render(request, "credit/customer.html", context)
