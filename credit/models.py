@@ -7,6 +7,13 @@ import itertools
 import random
 # Create your models here.
 
+class TextMessage(models.Model):
+    body = models.TextField()
+    sent = jmodels.jDateTimeField(default=datetime.datetime.now())
+
+    def __str__(self) -> str:
+        return self.body
+
 
 class Payment(models.Model):
     payment_date = jmodels.jDateField(default=datetime.datetime.now())
@@ -68,6 +75,7 @@ class Customer(models.Model):
     joined = jmodels.jDateField(auto_now_add=True)
     active_credit = models.BooleanField(default=False)
     AccountsReceivable = models.ManyToManyField(AccountsReceivable)
+    TextMessage = models.ManyToManyField(TextMessage)
 
     def __str__(self) -> str:
         return self.full_name

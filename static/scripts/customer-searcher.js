@@ -1,3 +1,29 @@
+function toPersianNum( num, dontTrim ) {
+
+    var i = 0,
+
+        dontTrim = dontTrim || false,
+
+        num = dontTrim ? num.toString() : num.toString().trim(),
+        len = num.length,
+
+        res = '',
+        pos,
+
+        persianNumbers = typeof persianNumber == 'undefined' ?
+            ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'] :
+            persianNumbers;
+
+    for (; i < len; i++)
+        if (( pos = persianNumbers[num.charAt(i)] ))
+            res += pos;
+        else
+            res += num.charAt(i);
+
+    return res;
+}
+
+
 function find_customer(search){
     
     $.ajax({
@@ -23,11 +49,11 @@ function find_customer(search){
                           </div>
                           <h6 class="mb-0 ms-3 fw-semi-bold">${data[i].full_name}</h6>
                         </a></td>
-                      <td class="email align-middle white-space-nowrap"><a href="/${data[i].id}/customer" class="fw-semi-bold ">${data[i].phone_number}</a></td>
+                      <td class="email align-middle white-space-nowrap"><a href="/${data[i].id}/customer" class="fw-semi-bold ">${toPersianNum(data[i].phone_number)}</a></td>
                       <td class="mobile_number align-middle white-space-nowrap"><a class="fw-bold text-1100" href="">${data[i].address}</a></td>
                       <td class="city align-middle white-space-nowrap text-2000 fw-semi-bold">${data[i].active_credit === false ? '<span class="badge badge-phoenix badge-phoenix-success">تسویه شده</span>' :'<span class="badge badge-phoenix badge-phoenix-danger"> تسویه نشده</span>' }</td>
-                      <td class="last_active align-middle text-end white-space-nowrap text-2000 fw-semi-bold">${data[i].joined}</td>
-                      <td class="joined align-middle white-space-nowrap text-2000 text-end fw-semi-bold"><button class="btn btn-danger">حذف</button></td>
+                      <td class="last_active align-middle text-end white-space-nowrap text-2000 fw-semi-bold">${toPersianNum(data[i].joined).replace(/-/g, '/')}</td>
+                      
                     </tr>    
                     
                 ` 

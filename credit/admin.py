@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer, AccountsReceivable, Payment, Factor, Products
+from .models import Customer, AccountsReceivable, Payment, Factor, Products, TextMessage
 # Register your models here.
 
 
@@ -27,3 +27,4 @@ admin.site.register(Factor, FactorAdmin)
 
 admin.site.register(Payment)
 admin.site.register(Products)
+admin.site.register(TextMessage)

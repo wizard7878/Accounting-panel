@@ -4,7 +4,7 @@ from django.views import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from .models import Customer, Factor, Products, Payment, AccountsReceivable
+from .models import Customer, Factor, Products, Payment, AccountsReceivable, TextMessage
 from .forms import CreateCustomerForm, CustomerChangeInfoForm
 from account.form import ChangePasswordForm
 import jdatetime
@@ -75,6 +75,8 @@ class CustomerCredit(View, LoginRequiredMixin):
     def get(self, request, id, *args, **kwargs):
         customer = Customer.objects.get(seller=request.user, id=id)
         accountsReceivable = customer.AccountsReceivable.all().order_by('-created')
+        textMessages = customer.TextMessage.all().order_by('-sent')[:3]
+
         paginator = Paginator(accountsReceivable, 30)
         page_number = request.GET.get('page')
         accountsReceivable_obj = paginator.get_page(page_number)
@@ -94,7 +96,8 @@ class CustomerCredit(View, LoginRequiredMixin):
             'factor_created' : factor.exists(),
             'factor_products' : factor_products if factor.exists() else [],
             'accountsReceivable' : accountsReceivable_obj,
-            'Calculation_payment_percentage': Calculation_payment_percentage(customer)
+            'Calculation_payment_percentage': Calculation_payment_percentage(customer),
+            'textMessages': textMessages
         }
         return render(request, "credit/customer.html", context)
     
@@ -115,8 +118,14 @@ class CustomerCredit(View, LoginRequiredMixin):
                 }
                 return render(request, "credit/customer.html", context)
             
-        if request.POST.get('send-message-sms'):
-            pass
+        if 'send-message' in request.POST:
+            body = request.POST.get('body')
+
+            textmessage = TextMessage.objects.create(body=body)
+            customer = Customer.objects.get(seller=request.user, id=id)
+            customer.TextMessage.add(textmessage)
+            # API SEND SMS
+            return redirect('customer', id)
 
         if "submit-product" in request.POST:
             data = {
@@ -319,7 +328,10 @@ class CustomerCredit(View, LoginRequiredMixin):
             for acpayment in accountsReceivable.payment.all():
                 Payment.objects.get(id=acpayment.id).delete()
             accountsReceivable.delete()
-
+            customer = Customer.objects.get(seller=request.user, id=id)
+            if not customer.AccountsReceivable.filter(debit=True).exists():
+                customer.active_credit = False
+                customer.save()
             return redirect('customer', id)
 
 
@@ -488,12 +500,17 @@ def all_credits(seller):
     for customer in customers:
         accountsReceivablecustomer = customer.AccountsReceivable.filter(debit=True)
         for accountReceivable in accountsReceivablecustomer:
-            credits[accountReceivable.type] += 1
+            if accountReceivable.type == 'R':
+                credits[accountReceivable.type] += round(accountReceivable.payment.all().order_by('payment_date').last().Account_balance_in_rial / accountReceivable.payment.all().order_by('payment_date').last().liquidated_price,2)
+            else:
+                credits[accountReceivable.type] += round(accountReceivable.payment.all().order_by('payment_date').last().Account_balance_in_gram, 2)
+            
+    
     
     for key,value in credits.items():
         total += value
         
-    credits['total'] = total
+    credits['total'] = round(total,2)
     return credits
 
 

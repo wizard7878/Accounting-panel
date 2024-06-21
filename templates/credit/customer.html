@@ -10,7 +10,7 @@
   <!-- ===============================================-->
   <!--    Document Title-->
   <!-- ===============================================-->
-  <title>Phoenix</title>
+  <title>پنل حسابداری گالری لیان</title>
 
   <!-- ===============================================-->
   <!--    Favicons-->
@@ -191,40 +191,21 @@
               <div class="col-12">
                 <div class="card mb-3 h-100">
                   <div class="card-body">
-                    <h3 class="mb-4">ارسال پیامک</h3><textarea class="form-control mb-3" rows="4"></textarea><button
-                      class="btn btn-phoenix-info w-40 mb-4 ">ارسال پیام</button>
+                    <form method="post"> {% csrf_token %}
+                    <h3 class="mb-4">ارسال پیامک</h3>
+                    <textarea name="body" class="form-control mb-3" rows="4"></textarea>
+                    <input type="hidden" name="send-message">
+                    <button class="btn btn-phoenix-info w-40 mb-4 " type="submit">ارسال پیام</button>
+                    </form>
+                      {% for textMessage in textMessages %}
                     <div class="fs--1 fw-semi-bold pb-3 mb-4 border-bottom border-dashed border-300">
-                      <p class="text-1000 mb-1">سلام متن پیام نمونه</p>
+                      <p class="text-1000 mb-1">{{textMessage.body}}</p>
                       <div class="text-end">
-                        <p class="text-600 mb-0">1403/03/13</p>
+                        <p class="text-800 mb-0">{{textMessage.sent|date:"h:m"|persian_int}} {{textMessage.sent|date:"Y/m/d"|persian_int}} </p>
                       </div>
                     </div>
-                    <div class="fs--1 fw-semi-bold pb-3 mb-4 border-bottom border-dashed border-300">
-                      <p class="text-1000 mb-1">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
-                        از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای
-                        شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای
-                        زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم
-                        افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان
-                        فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط
-                        سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته
-                        اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
-                      <div class="text-end">
-                        <p class="text-600 mb-0">1403/03/19</p>
-                      </div>
-                    </div>
-                    <div class="fs--1 fw-semi-bold pb-3 mb-4 border-bottom border-dashed border-300">
-                      <p class="text-1000 mb-1">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>
-                      <div class="text-end">
-                        <p class="text-600 mb-0">1403/03/25</p>
-                      </div>
-                    </div>
-                    <div class="fs--1 fw-semi-bold">
-                      <p class="text-1000 mb-1">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ لورم ایپسوم
-                        متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>
-                      <div class="text-end">
-                        <p class="text-600 mb-0">1403/03/30</p>
-                      </div>
-                    </div>
+                    {% endfor %}
+                    
                   </div>
                 </div>
               </div>

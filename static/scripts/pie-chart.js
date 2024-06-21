@@ -69,7 +69,7 @@ function pieChart(rialis, gramis, longterms){
                 const o = t(i, "echarts"),
                     a = window.echarts.init(i);
                 echartSetOption(a, o, (() => ({
-                    color: [e("info-300"), e("warning-300"), e("danger-300"), e("success-300"), e("primary")],
+                    color: [e("warning-300"), e("info-300"), e("danger-300"), e("success-300"), e("primary")],
                     tooltip: {
                         trigger: "item",
                         position: (...e) => handleTooltipPosition(e)
