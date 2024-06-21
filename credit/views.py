@@ -57,7 +57,7 @@ def index(request):
             for type in types:
                 query |= Q(AccountsReceivable__type=type)
 
-            customers = Customer.objects.filter(query).filter(seller=request.user, AccountsReceivable__debit=True).order_by('-active_credit')
+            customers = Customer.objects.filter(query).filter(seller=request.user, AccountsReceivable__debit=True).distinct()
         
         data = []
         for customer in customers:
@@ -71,7 +71,7 @@ def index(request):
                     'address': customer.address,
                  }
                 )
-        
+        print(data)
         return JsonResponse({'data': data})
 
     if request.method == 'POST':
