@@ -218,6 +218,7 @@ class CustomerCredit(View, LoginRequiredMixin):
             date = request.POST.get('long-date').replace('/', '-')
             
             accountsReceivable = AccountsReceivable.objects.create(
+                created = date,
                 type='L',
                 factor=factor
             )
@@ -265,6 +266,7 @@ class CustomerCredit(View, LoginRequiredMixin):
             installments = request.POST.get('grami-installments')
             
             accountsReceivable = AccountsReceivable.objects.create(
+                created = date,
                 type='G',
                 installments = installments,
                 factor=factor
@@ -313,6 +315,7 @@ class CustomerCredit(View, LoginRequiredMixin):
             interest_rates = float(request.POST.get('riali-interest_rates')) #درصد سود
 
             accountsReceivable = AccountsReceivable.objects.create(
+                created = date,
                 type='R',
                 factor = factor,
                 installments = installments,
