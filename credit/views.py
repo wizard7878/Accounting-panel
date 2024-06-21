@@ -8,7 +8,7 @@ from .models import Customer, Factor, Products, Payment, AccountsReceivable, Tex
 from .forms import CreateCustomerForm, CustomerChangeInfoForm
 from account.form import ChangePasswordForm
 import jdatetime
-from datetime import datetime
+from django.db.models import Q
 # Create your views here.
 
 @login_required(login_url='/account/login/')
@@ -17,6 +17,7 @@ def index(request):
     paginator = Paginator(customers, 30)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
     if request.GET.get('search_type'):
         if request.GET.get('search_type') == 'phone_number':
             if request.GET.get('name') == "":
@@ -44,6 +45,35 @@ def index(request):
         
         return JsonResponse({'data': data})
     
+    if request.GET.get('categories[]'):
+        req = dict(request.GET.lists())
+        types = req['categories[]']
+        query= Q()
+
+        if types == ['None']:
+            customers = Customer.objects.filter(seller=request.user).order_by('-active_credit')
+            
+        else:
+            for type in types:
+                query |= Q(AccountsReceivable__type=type)
+
+            customers = Customer.objects.filter(query).filter(seller=request.user, AccountsReceivable__debit=True).order_by('-active_credit')
+        
+        data = []
+        for customer in customers:
+            data.append(
+                {
+                    'id': customer.id,
+                    'phone_number': customer.phone_number,
+                    'full_name': customer.full_name,
+                    'joined': str(customer.joined),
+                    'active_credit': customer.active_credit,
+                    'address': customer.address,
+                 }
+                )
+        
+        return JsonResponse({'data': data})
+
     if request.method == 'POST':
         if 'phone_number' in request.POST:
             createCustomerForm = CreateCustomerForm(request.POST, user=request.user)

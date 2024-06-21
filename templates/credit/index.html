@@ -127,7 +127,7 @@
             
           </div>
         </div>
-        
+       
         
         <div id="customers" class="pt-3"> 
           {% for error in createCustomerForm.phone_number.errors %}
@@ -137,18 +137,36 @@
           </div>
           {% endfor %}  
           <h2 class="text-bold text-1100 mb-5">تمام مشتریان</h2>
+          
           <div data-list="{&quot;valueNames&quot;:[&quot;customer&quot;,&quot;email&quot;,&quot;mobile_number&quot;,&quot;city&quot;,&quot;last_active&quot;,&quot;joined&quot;],&quot;page&quot;:10,&quot;pagination&quot;:true}">
+
             <div class="row align-items-center justify-content-between g-3 mb-4">
+
+              
+
               <div class="col col-auto">
+                
                 <!--customer Searcher -->
                 <div class="search-box">
                   <form method="get" class="position-relative"><input id="search-customer" class="form-control search-input" type="search" placeholder="مشتری رو با شماره همراهش پیدا کن" aria-label="Search">
                     <svg class="svg-inline--fa fa-magnifying-glass search-box-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="magnifying-glass" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"></path></svg><!-- <span class="fas fa-search search-box-icon"></span> Font Awesome fontawesome.com -->
                   </form>
+                  
                 </div>
                  <!-- end customer Searcher -->
+                 <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="checkbox" value="G">
+                  <p class="form-check-label" for="checkbox">حساب های گرمی</p>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="checkbox" value="R">
+                  <p class="form-check-label" for="checkbox">ریالی</p>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="checkbox" value="L">
+                  <p class="form-check-label" for="checkbox">بلند مدت</p>
+                </div>
               </div>
-       
               <div class="col-auto">
               
                 <div class="d-flex align-items-center"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#rialaccount"><svg class="svg-inline--fa fa-plus me-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"></path></svg><!-- <span class="fas fa-plus me-2"></span> Font Awesome fontawesome.com -->ایجاد حساب برای مشتری</button></div>
@@ -178,8 +196,13 @@
                   </div>
                 </div>
                 <!--End Modal-->
+               
               </div>
+        
             </div>
+            
+            
+            
             <div class="mx-n4 mx-lg-n6 px-4 px-lg-6 mb-9 bg-white border-y border-300 mt-2 position-relative top-1">
               <div class="table-responsive scrollbar ms-n1 ps-1">
                 <table class="table table-sm fs--5 mb-0">
@@ -273,6 +296,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="{% static 'scripts/customer-searcher.js' %}"></script>
+<script src="{% static 'scripts/customer-filter.js' %}"></script>
 <script src="{% static 'scripts/pie-chart.js' %}"></script>
 <script>
   var riali = "{{pieChartInfo.R}}"

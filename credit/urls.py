@@ -4,7 +4,7 @@ from .views import (
     CustomerCredit,
     CustomerRialiCreditView, 
     CustomerLongCreditView, 
-    CustomerGramiCreditView
+    CustomerGramiCreditView,
     )
 
 urlpatterns = [
