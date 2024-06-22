@@ -52,7 +52,7 @@ def index(request):
 
         if types == ['None']:
             customers = Customer.objects.filter(seller=request.user).order_by('-active_credit')
-            
+
         else:
             for type in types:
                 query |= Q(AccountsReceivable__type=type)
@@ -183,21 +183,22 @@ class CustomerCredit(View, LoginRequiredMixin):
             now = jdatetime.datetime.now()
             unique_code = now.strftime('%Y%m%d%H%M%S%f')
             customer = Customer.objects.get(seller=request.user, id=id)
-
+           
             total_price = 0
             total_weight = 0
-            factor = Factor.objects.create(code=unique_code, seller=request.user, customer= customer)
-            for p_id in product_ids:
-               
-                p = Products.objects.get(id=int(p_id))
-                total_price += p.price
-                total_weight += p.weight
-                factor.products.add(p)
+            if product_ids != ['']:
+                factor = Factor.objects.create(code=unique_code, seller=request.user, customer= customer)
+                for p_id in product_ids:
                 
-            factor.total_price = total_price
-            factor.total_weight = total_weight
-            factor.save()
-            return JsonResponse(data={'code':factor.code})
+                    p = Products.objects.get(id=int(p_id))
+                    total_price += p.price
+                    total_weight += p.weight
+                    factor.products.add(p)
+                    
+                factor.total_price = total_price
+                factor.total_weight = total_weight
+                factor.save()
+                return JsonResponse(data={'code':factor.code})
             
 
         if 'delete-factor' in request.POST:
